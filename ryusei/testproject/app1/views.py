@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 import random
 # Create your views here.
 def index(request):
@@ -15,7 +16,7 @@ def index(request):
 
 def page1(request):
     title = "app1_page1"
-    toppage = "app1_toppage"
+    toppage = "app1:toppage"
     params = {
         "title": title,
         "back": toppage,
@@ -24,7 +25,7 @@ def page1(request):
 
 def page2(request):
     title = "app1_page2"
-    toppage = "app1_toppage"
+    toppage = "app1:toppage"
     contains = ["aaa" for a in range(100)]
     params = {
         "title": title,

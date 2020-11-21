@@ -1,0 +1,11 @@
+<form method="post" action="{%url 'app2:form'%}">
+    {%csrf_token%}
+    <label for="msg">身長と体重を入力してください</label><br>
+    <label for="msg">身長</label>
+    <input id="msg" type="text" name="hight">cm<br>
+    <label for="msg">体重</label>
+    <input id="msg" type="text" name="weight">kg<br>
+    <input id="msg" type="submit" value="click">
+</form>
+
+<h1>{{msg}}</h1>
