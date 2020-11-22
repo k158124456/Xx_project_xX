@@ -7,9 +7,16 @@ ul {
  
 ul li.header_class {
   margin-top: 0px;
+  margin-left: 0px;
   display: inline-block;
-  padding: 5px 10px 10px 10px;
+  padding: 5px 20px 10px 0px;
 }
+ul li a{
+  margin-left: 0px;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+
 
 h1{
   margin-top: 0px;
@@ -21,15 +28,16 @@ h1{
 
 header{
   margin-top: 0px;
-	height: 32px;
+  margin-left: 0px;
+	height: 36px;
   /*position: absolute;*/
   position: fixed;
   /*top: 300px;*/
   background-color: rgb(0, 0, 0);
   width: 100%;
-  text-align: center;
+  text-align: left;
   /*z-index: 1;*//*物体の描画優先度で大きいほど優先される*/
-  box-shadow: 0px 0px 10px 0px rgba(26, 26, 26, 0.25);
+  /*box-shadow: 0px 0px 10px 0px rgba(26, 26, 26, 0.25);*/
 }
 
 p{
