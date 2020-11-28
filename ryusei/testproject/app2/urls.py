@@ -5,5 +5,5 @@ from . import views
 app_name = "app2"
 urlpatterns = [
     path("toppage/", views.index, name="toppage"),
-    path("form/", views.form, name="form")
+    path("form/", views.BmiView.as_view(), name="form")
 ]

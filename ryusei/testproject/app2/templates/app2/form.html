@@ -1,11 +1,23 @@
-<form method="post" action="{%url 'app2:form'%}">
-    {%csrf_token%}
-    <label for="msg">身長と体重を入力してください</label><br>
-    <label for="msg">身長</label>
-    <input id="msg" type="text" name="hight">cm<br>
-    <label for="msg">体重</label>
-    <input id="msg" type="text" name="weight">kg<br>
-    <input id="msg" type="submit" value="click">
-</form>
+{% load static %}
+<! dtype html >
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        crossorigin="anonymous">
+    </head>
+    <body class="container">
+        <h1>{{title}}</h1>
+        <h2>{{msg|safe}}</h2>
+        <form action="{% url 'app2:form'%}" method="post">
+            {% csrf_token %}
+            <!--form のクラスはform-controll-->
+            <table>{{ form.as_table }}</table>
+            
+            <input type="submit" value="click" class="btn btn-primary my-2">
+        </form>
+    </body>
+</html>
 
-<h1>{{msg}}</h1>
+
