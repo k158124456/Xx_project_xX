@@ -7,12 +7,14 @@
     </head>
     <body>
         <h1>これはサインアップページだよ</h1>
-        <p>{{msg}}</p>
+        <p>{{msg|safe}}</p>
         <form action="{% url 'sign_up:sign_up_page'%}" method="post">
             {% csrf_token %}
             <table>{{form}}</table>
             <input type="submit" value="新規登録">
         </form>
+        <a href="{% url 'toppage:toppage' %}">toppageに戻る</a>
+        <p>{{debug}}</p>
     </body>
 </html>
 
