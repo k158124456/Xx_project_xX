@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from sign_up.forms import SignupForm
 from .models import UserList
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -59,8 +60,10 @@ class SignUp(TemplateView):
             return render(request, 'sign_up/sign_up_page.html', self.params)
 
         else:
+            user = User.objects.create_user(self.user_id, self.mail, self.pswd)
             users = UserList(user_id=self.user_id, mail=self.mail, pswd=self.pswd)
             users.save()
+            user.save()
             return render(request, 'sign_up/sign_up_completed.html')
         
 def comp(request):
