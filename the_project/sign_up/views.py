@@ -61,7 +61,8 @@ class SignUp(TemplateView):
         else:
             users = UserList(user_id=self.user_id, mail=self.mail, pswd=self.pswd)
             users.save()
-            return render(request, 'toppage/toppage.html')
+            return render(request, 'sign_up/sign_up_completed.html')
         
-        
+def comp(request):
+    return render(request, "sign_up/sign_up_completed.html")
 
