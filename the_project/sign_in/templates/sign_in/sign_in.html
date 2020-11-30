@@ -8,21 +8,23 @@
     
 
     <body>
-    <h1>サインイン</h1>
+    <h1>sign in</h1>
     <form action="" method="POST">
         {% csrf_token %}
         <!------form自体のクラスはform-controlで与えられてるよ------>
+        {% for field in form %}
         <div class="form-group has-feedback">
-        <table>{{ form }}</table>
+        {{ field }}
         </div>
-        
+        {% endfor %}
 
         {% for error in form.non_field_errors %}
         <div class="alert alert-danger" role="alert">
             <p>{{ error }}</p>
         </div>
         {% endfor %}
-        <button type="submit">Sign in</button>
+        <button type="submit" >Sign in</button>
+        
     </form>
     <a href="{%url 'toppage:toppage'%}">トップページに戻る</a>
     </body>
