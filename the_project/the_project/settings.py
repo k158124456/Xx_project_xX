@@ -25,7 +25,7 @@ SECRET_KEY = '3)w#vxs3*m+_gr*@t%6agv^ugp7=@ry_j_&@4c680*3n=@&1k^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'sign_in',
     'sign_up',
     'toppage',
+    'mainpage'
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = '/sign_in' 
+LOGIN_REDIRECT_URL = '/mainpage'
+LOGOUT_REDIRECT_URL='/sign_in/sign_out_page'

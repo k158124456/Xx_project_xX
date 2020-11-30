@@ -1,0 +1,31 @@
+{% load static %}
+<! dtype html >
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+    </head>
+    
+
+    <body>
+    <h1>sign in</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <!------form自体のクラスはform-controlで与えられてるよ------>
+        {% for field in form %}
+        <div class="form-group has-feedback">
+        {{ field }}
+        </div>
+        {% endfor %}
+
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger" role="alert">
+            <p>{{ error }}</p>
+        </div>
+        {% endfor %}
+        <button type="submit" >Sign in</button>
+        
+    </form>
+    <a href="{%url 'toppage:toppage'%}">トップページに戻る</a>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+{% load static %}
+<! dtype html >
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+    </head>
+    <body>
+    <h1>toppage</h1>
+    <a href="{% url 'sign_up:sign_up_page' %}">Sign up</a>
+    <a href="{% url 'sign_in:sign_in' %}">Sign in</a>
+    </body>
+</html>
+
+
