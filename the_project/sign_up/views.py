@@ -51,6 +51,11 @@ class SignUp(TemplateView):
                 return True
         else:return False
 
+    def need_chr_mail(self, mail):
+        #self.params["debug"] = not ("@" in str(mail))
+        return not ("@" in str(mail))
+
+
     def get(self, request):
         return render(request, 'sign_up/sign_up_page.html', self.params)
 
@@ -69,30 +74,34 @@ class SignUp(TemplateView):
         not_use_id = self.unavailable_cha_id(self.user_id)
         not_use_mail = self.unavailable_cha_mail(self.mail)
         not_use_pass = self.unavailable_cha_pass(self.pswd)
+        at_isin = self.need_chr_mail(self.mail)
+        
 
-        if dif_pass or already_recorded_mail or already_recorded_id or too_short_pass or not_use_id or not_use_mail or not_use_pass:
+        if dif_pass or already_recorded_mail or already_recorded_id or too_short_pass or not_use_id or not_use_mail or not_use_pass or at_isin:
             return_post = request.POST.copy()
             if dif_pass:
-                self.params['msg'] += "<br>入力された二つのパスワードが異なります　"
+                self.params['msg'] += "<br>入力された二つのパスワードが異なります"
             
             if already_recorded_mail :
-                self.params['msg'] += "<br>すでに登録してあるメールアドレスです　"
+                self.params['msg'] += "<br>すでに登録してあるメールアドレスです"
             
             if already_recorded_id:
-                self.params['msg'] += "<br>すでに登録してあるユーザーIDです　"
+                self.params['msg'] += "<br>すでに登録してあるユーザーIDです"
 
             if too_short_pass:
-                self.params['msg'] += "<br>6文字以上のパスワードを使用してください　"
+                self.params['msg'] += "<br>6文字以上のパスワードを使用してください"
             
             if not_use_id:
-                self.params['msg'] += "<br>ユーザーIDに使用できない文字が含まれています　"
+                self.params['msg'] += "<br>ユーザーIDに使用できない文字が含まれています"
 
             if not_use_mail:
-                self.params['msg'] += "<br>メールアドレスに使用できない文字が含まれています　"
+                self.params['msg'] += "<br>メールアドレスに使用できない文字が含まれています"
 
             if not_use_pass:
-                self.params['msg'] += "<br>パスワードに使用できない文字が含まれています　"
+                self.params['msg'] += "<br>パスワードに使用できない文字が含まれています"
             
+            if at_isin:
+                self.params['msg'] += "<br>正しいメールアドレスを入力してください"
             self.params['form'] = SignupForm(request.POST)
             return render(request, 'sign_up/sign_up_page.html', self.params)
 
@@ -102,7 +111,8 @@ class SignUp(TemplateView):
             users.save()
             user.save()
             return render(request, 'sign_up/sign_up_completed.html')
-        
+
+#sign upが成功した時にサインアップ成功のページに飛ぶ
 def comp(request):
     return render(request, "sign_up/sign_up_completed.html")
 
