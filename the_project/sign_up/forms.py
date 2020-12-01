@@ -6,7 +6,7 @@ class SignupForm(forms.Form):
     pswd = forms.CharField(max_length=20, label='psssword', widget=forms.PasswordInput(attrs={'class':'form-controll'}))
     re_pswd = forms.CharField(max_length=20,label='もう一度入力', widget=forms.PasswordInput(attrs={'class':'form-controll'}))
     
-    user_id.widget.attrs['placeholder'] = user_id.label
+    user_id.widget.attrs['placeholder'] = "ユーザーID"
     mail.widget.attrs['placeholder'] = "メールアドレス"
     pswd.widget.attrs['placeholder'] = pswd.label
     re_pswd.widget.attrs['placeholder'] = pswd.label
