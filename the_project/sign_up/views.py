@@ -107,7 +107,7 @@ class SignUp(TemplateView):
 
         else:
             user = User.objects.create_user(self.user_id, self.mail, self.pswd)
-            users = UserList(user_id=self.user_id, mail=self.mail, pswd=self.pswd)
+            users = UserList(user_id=self.user_id, mail=self.mail)
             users.save()
             user.save()
             return render(request, 'sign_up/sign_up_completed.html')

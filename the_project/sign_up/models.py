@@ -5,4 +5,6 @@ from django.db import models
 class UserList(models.Model):
     user_id = models.CharField(max_length=20)
     mail = models.EmailField(max_length=100)
-    pswd = models.CharField(max_length=20)
+    def __str__(self):
+        return self.user_id
+
