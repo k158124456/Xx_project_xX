@@ -1,0 +1,26 @@
+{% load static %}
+<! dtype html >
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+    </head>
+    <body>
+        <h1>新規登録</h1>
+        <p>{{msg|safe}}</p>
+        <form action="{% url 'sign_up:sign_up_page'%}" method="post">
+            {% csrf_token %}
+            <!-- formのクラスはform-controlだよ-->
+            {% for field in form %}
+            <div class="form-group has-feedback">
+            {{ field }}
+            </div>
+            {% endfor %}
+            <input type="submit" value="新規登録">
+        </form>
+        <a href="{% url 'toppage:toppage' %}">toppageに戻る</a>
+        <a href="{% url 'sign_in:sign_in' %}">Sign inはこちら</a>
+        <p>{{debug}}</p>
+    </body>
+</html>
+
