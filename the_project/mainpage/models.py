@@ -25,6 +25,8 @@ class ProjectMember(models.Model):
     projectlist = models.ForeignKey(Project, on_delete=models.CASCADE)
     displayname=models.CharField(max_length=100)
     role=models.IntegerField(max_length=3)
+    def __str__(self):
+        return str(self.userlist) + "," + str(self.projectlist) + "," + str(self.displayname) + "," + str(self.role)
 
 class Status(models.Model):
     group_id=models.ForeignKey(Group, on_delete=models.CASCADE)

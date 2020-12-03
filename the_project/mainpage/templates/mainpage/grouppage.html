@@ -11,10 +11,20 @@
 
     <a  href="{% url 'sign_in:sign_out' %}">Sign out</a>
     <p>ようこそ{{ userdata }}さん</p>
+
     <p>参加しているプロジェクト一覧</p>
     {%for item in project%}
     <a href="/mainpage/{{item.projectlist}}">{{item.projectlist}}</a>
     {% endfor %}
+
+    <p>{{project_name}}に存在しているグループ一覧</p>
+    <a href="">新しいグループを作成する</a>
+    {{groups}}
+    
+    {%for group in groups%}
+    <p>{{group}}</p>
+    {% endfor %}
+
     <p>{{debug}}</p>
 
 

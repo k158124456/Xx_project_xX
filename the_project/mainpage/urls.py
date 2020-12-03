@@ -6,4 +6,5 @@ app_name = 'mainpage'
 
 urlpatterns = [
     path('', views.MainPage.as_view(), name='mainpage'),
+    path('<id>/', views.GroupList.as_view(), name='grouplist')
 ]
