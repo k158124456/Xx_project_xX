@@ -7,4 +7,4 @@ class UserList(models.Model):
     mail = models.EmailField(max_length=100)
     def __str__(self):
         return self.user_id
-
+#iofhweaoig
