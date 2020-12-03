@@ -21,14 +21,14 @@ class Group(models.Model):
         return self.group_name
 
 class ProjectMember(models.Model):
-    userlist = models.ForeignKey(UserList, on_delete=models.CASCADE)
+    userlist = models.ForeignKey(User, on_delete=models.CASCADE)
     projectlist = models.ForeignKey(Project, on_delete=models.CASCADE)
     displayname=models.CharField(max_length=100)
     role=models.IntegerField(max_length=3)
 
 class Status(models.Model):
     group_id=models.ForeignKey(Group, on_delete=models.CASCADE)
-    userlist = models.ForeignKey(UserList, on_delete=models.CASCADE)
+    userlist = models.ForeignKey(User, on_delete=models.CASCADE)
     status= models.IntegerField(max_length=3)
 
 
