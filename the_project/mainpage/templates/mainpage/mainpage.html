@@ -8,8 +8,16 @@
     <body>
     <h1>mainpageです</h1>
     {% if user.is_authenticated %}
+
     <a  href="{% url 'sign_in:sign_out' %}">Sign out</a>
-    <p>{{ user.get_username }}</p>
+    <p>ようこそ{{ userdata }}さん</p>
+    <p>{{projects}}</p>
+
+
+
+
+
+
     {% else %}
     <p><a  href="{% url 'sign_in:sign_in' %}">Sign in</a>が必要なページです</p>
     {% endif %}
