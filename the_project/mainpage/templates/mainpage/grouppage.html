@@ -18,14 +18,15 @@
     {% endfor %}
 
     <p>{{project_name}}に存在しているグループ一覧</p>
+
+    <!--ユーザーが管理者かどうかを判別、管理者なら新しいグループを作成できるようにする-->
+    {% if admin_or_not == 1 %}
     <a href="">新しいグループを作成する</a>
-    {{groups}}
-    
+    {% endif %} 
     {%for group in groups%}
-    <p>{{group}}</p>
+    <a href="/grouppage/{{group.group_name}}">{{group}}</p>
     {% endfor %}
 
-    <p>{{debug}}</p>
 
 
 
