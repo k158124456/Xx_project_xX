@@ -11,12 +11,22 @@
 
     <a  href="{% url 'sign_in:sign_out' %}">Sign out</a>
     <p>ようこそ{{ userdata }}さん</p>
+
     <p>参加しているプロジェクト一覧</p>
     {%for item in project%}
     <a href="/mainpage/{{item.projectlist}}">{{item.projectlist}}</a>
     {% endfor %}
-    <p>{{debug}}</p>
-    
+
+    <p>{{project_name}}に存在しているグループ一覧</p>
+
+    <!--ユーザーが管理者かどうかを判別、管理者なら新しいグループを作成できるようにする-->
+    {% if admin_or_not == 1 %}
+    <a href="">新しいグループを作成する</a>
+    {% endif %} 
+    {%for group in groups%}
+    <a href="/grouppage/{{group.group_name}}">{{group}}</p>
+    {% endfor %}
+
 
 
 
