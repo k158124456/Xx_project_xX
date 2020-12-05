@@ -33,11 +33,9 @@ class Status(models.Model):
     userlist = models.ForeignKey(User, on_delete=models.CASCADE)
     status= models.IntegerField(max_length=3)
 
-
-
-
-    #def __str__(self):
-    #    return self.userlist
-
+class Invite(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
+    invite_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invite_user')
+    invited_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invited_user')
 
 
