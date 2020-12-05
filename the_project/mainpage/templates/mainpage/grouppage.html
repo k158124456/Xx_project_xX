@@ -1,42 +1,42 @@
 {% load static %}
 <! dtype html >
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <title>{{title}}</title>
-    </head>
-    <body>
-    <h1>mainpageです</h1>
-    {% if user.is_authenticated %}
+        <head>
+            <meta charset="utf-8">
+            <title>{{title}}</title>
+        </head>
+        <body>
+        <h1>mainpageです</h1>
+        {% if user.is_authenticated %}
 
-    <a  href="{% url 'sign_in:sign_out' %}">Sign out</a>
-    <p>ようこそ{{ userdata }}さん</p>
+        <a  href="{% url 'sign_in:sign_out' %}">Sign out</a>
+        <p>ようこそ{{ userdata }}さん</p>
 
-    <p>参加しているプロジェクト一覧</p>
-    {%for item in project%}
-    <a href="/mainpage/{{item.projectlist}}">{{item.projectlist}}</a><br>
-    {% endfor %}
+        <p>参加しているプロジェクト一覧</p>
+        {%for item in project%}
+        <a href="/mainpage/{{item.projectlist}}">{{item.projectlist}}</a><br>
+        {% endfor %}
 
-    <p>{{project_name}}に存在しているグループ一覧</p>
+        <p>{{project_name}}に存在しているグループ一覧</p>
 
-    <!--ユーザーが管理者かどうかを判別、管理者なら新しいグループを作成できるようにする-->
-    {% if admin_or_not == 1 %}
-    <a href="">新しいグループを作成する</a><br>
-    {% endif %} 
-    {%for group in groups%}
-    <a href="/mainpage/{{project_name}}/{{group.group_name}}">{{group.group_name}}</a><br>
-    {% endfor %}
-
-
-
+        <!--ユーザーが管理者かどうかを判別、管理者なら新しいグループを作成できるようにする-->
+        {% if admin_or_not == 1 %}
+        <a href="/mainpage/{{project_name}}/create">新しいグループを作成する</a><br>
+        {% endif %} 
+        {%for group in groups%}
+        <a href="">{{group.group_name}}</a><br>
+        {% endfor %}
+        <a href="/mainpage/{{project_name}}/invite">{{project_name}}にメンバーを招待する</a>
 
 
 
 
-    {% else %}
-    <p><a  href="{% url 'sign_in:sign_in' %}">Sign in</a>が必要なページです</p>
-    {% endif %}
-    </body>
+
+
+        {% else %}
+        <p><a  href="{% url 'sign_in:sign_in' %}">Sign in</a>が必要なページです</p>
+        {% endif %}
+        </body>
 </html>
 
 
