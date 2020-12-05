@@ -36,5 +36,9 @@ class Status(models.Model):
     def __str__(self):
         return str(self.group_id)+","+str(self.userlist)+","+str(self.status)
 
+class Invite(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
+    invite_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invite_user')
+    invited_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invited_user')
 
 
