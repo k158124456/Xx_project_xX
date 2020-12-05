@@ -33,11 +33,8 @@ class Status(models.Model):
     userlist = models.ForeignKey(User, on_delete=models.CASCADE)
     status= models.IntegerField(max_length=3)
 
-
-
-
-    #def __str__(self):
-    #    return self.userlist
+    def __str__(self):
+        return str(self.group_id)+","+str(self.userlist)+","+str(self.status)
 
 
 

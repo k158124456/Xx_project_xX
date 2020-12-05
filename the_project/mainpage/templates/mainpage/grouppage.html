@@ -14,17 +14,17 @@
 
     <p>参加しているプロジェクト一覧</p>
     {%for item in project%}
-    <a href="/mainpage/{{item.projectlist}}">{{item.projectlist}}</a>
+    <a href="/mainpage/{{item.projectlist}}">{{item.projectlist}}</a><br>
     {% endfor %}
 
     <p>{{project_name}}に存在しているグループ一覧</p>
 
     <!--ユーザーが管理者かどうかを判別、管理者なら新しいグループを作成できるようにする-->
     {% if admin_or_not == 1 %}
-    <a href="">新しいグループを作成する</a>
+    <a href="">新しいグループを作成する</a><br>
     {% endif %} 
     {%for group in groups%}
-    <a href="/grouppage/{{group.group_name}}">{{group}}</p>
+    <a href="/mainpage/{{project_name}}/{{group.group_name}}">{{group.group_name}}</a><br>
     {% endfor %}
 
 

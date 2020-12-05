@@ -13,7 +13,7 @@
     <p>ようこそ{{ userdata }}さん</p>
     <p>参加しているプロジェクト一覧</p>
     {%for item in project%}
-    <a href="/mainpage/{{item.projectlist}}">{{item.projectlist}}</a>
+    <a href="/mainpage/{{item.projectlist}}">{{item.projectlist}}</a><br>
     {% endfor %}
     <p>{{debug}}</p>
     
