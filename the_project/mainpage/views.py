@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 # Create your views here.
 from django.contrib.auth.decorators import login_required
-from .models import Project, Group, ProjectMember, Status
+from .models import Project, Group, ProjectMember, Status, Invite
 import pandas as pd
 from django.http import HttpResponse
+from .forms import InviteForm
 
 class MainPage(TemplateView):
     def get(self, request):
@@ -45,15 +46,57 @@ class GroupList(TemplateView):
         }
         return render(request, 'mainpage/grouppage.html', params)
 
+#招待したいユーザーを検索 → 検索に合致するユーザーがいたらその人を選択 → messageを入力して招待を送信
 class InviteMembers(TemplateView):
-    def get(self, request, project_id):
-        params = {
-            "project_name" : "" 
+    def __init__(self):
+        self.params = {
+            "project_name" : "" ,
+            "form_serch_user" : InviteForm()["invited_user"],
+            "form_message" : InviteForm()["message"],
+            "degug" : [],
+            "message" : "",
+            "user" : "",
         }
-        params["project_name"] = project_id
-        return render(request, 'mainpage/invite.html', params)
-    def post(self, request):
-        return render(request, 'mainpage/invite.html')
+
+    def get(self, request, project_id):
+        self.params["user"] = request.GET["usr"]
+        self.params["project_name"] = project_id
+
+        # クエリパラメータ(?usr=<username>)で指定されたusernameをinvite_userに格納
+        self.invite_user = request.GET["usr"]
+        # クエリパラメータで指定されているプロジェクトネームを格納
+        self.invited_project = self.params["project_name"]
+
+        return render(request, 'mainpage/invite.html', self.params)
+
+    def post(self, request, project_id):
+        # フォームから入力された各値を格納
+        self.params["user"] = request.GET["usr"]
+        self.params["project_name"] = project_id
+        self.message = request.POST.get("message")
+        self.invited_user = request.POST.get("invited_user")
+
+        if True:
+            self.params["msg"] = "そのようなユーザーIDは存在しません"
+            self.params["form_message"] = InviteForm(request.POST)["message"]
+            return render(request, "mainpage/invite.html", self.params)
+        else:
+            self.params["message"] = "招待メッセージを送りました。"
+            return render(request, "mainpage/invite_comp.html", self.params)
+        
+        """
+        #データベースに格納
+        iv = Invite(
+            project_name=self.invited_project, 
+            invite_user=self.invite_user, 
+            invited_user=self.invited_user,
+            message=self.message
+            )
+        iv.save()
+        """
+
+    
+
 
 class CreateGroup(TemplateView):
     def get(self, request, project_id):
@@ -64,32 +107,5 @@ class CreateGroup(TemplateView):
         return render(request, 'mainpage/create.html', params)
     def post(self, request):
         return render(request, 'mainpage/create.html')
-
-class RoomPage(TemplateView):
-    def __init__(self):
-        
-        params = {
-            "userdata" : "",
-            "project" : "",
-        }
-    
-    def get(self,request,id,group_name):
-        projects = ProjectMember.objects.filter(userlist=request.user)
-        groups = Group.objects.filter(project_id__project_name=id)
-        admin_or_not = projects.filter(projectlist__project_name=id)[0].role
-        statuss = Status.objects.filter(group_id__group_name=group_name)
-        
-        params = {
-            "userdata" : str(request.user),
-            "project" : projects,
-            "groups" : groups,
-            "project_name" : id,
-            "admin_or_not" : admin_or_not,
-            "statuss" : statuss,
-            "group_name" : group_name,
-            
-        }
-        return render(request, 'mainpage/roompage.html', params)
-
 
 

@@ -6,7 +6,7 @@
             <title>{{title}}</title>
         </head>
         <body>
-        <h1>mainpageです</h1>
+        <h1>グループページです</h1>
         {% if user.is_authenticated %}
 
         <a  href="{% url 'sign_in:sign_out' %}">Sign out</a>
@@ -23,10 +23,14 @@
         {% if admin_or_not == 1 %}
         <a href="/mainpage/{{project_name}}/create">新しいグループを作成する</a><br>
         {% endif %} 
+        
+        <!--グループはgroupnameにクエリパラメータを渡してページ遷移-->
         {%for group in groups%}
-        <a href="">{{group.group_name}}</a><br>
+        <a href="/mainpage/{{project_name}}/grouppage?groupname={{group.group_name}}">{{group.group_name}}</a><br>
         {% endfor %}
-        <a href="/mainpage/{{project_name}}/invite">{{project_name}}にメンバーを招待する</a>
+        {% if admin_or_not == 1 %}
+        <a href="/mainpage/{{project_name}}/invite?usr={{userdata}}">{{project_name}}にメンバーを招待する</a>
+        {% endif %}
 
 
 
