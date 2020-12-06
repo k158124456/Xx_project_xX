@@ -1,3 +1,18 @@
 <h1>InvitePageですよ！</h1>
 
 <p>{{project_name}}</p>
+
+{% csrf_token %}
+<!-- formのクラスはform-controlだよ-->
+
+<div class="form-group has-feedback">
+<form action="{% url 'mainpage':invite'%}" method="post"></form>
+{{form_serch_user}}
+<input type="submit" value="検索">
+
+<form action="{% url 'mainpage':invite'%}" method="post"></form>
+{{form_serch_user}}
+<input type="submit" value="招待">
+
+{{form_message}}
+</div>

@@ -66,7 +66,7 @@ class SignUp(TemplateView):
         self.retype_pswd = request.POST.get('re_pswd')
         self.params['msg'] = ""
 
-
+        #条件に合致しているかの判別プログラム
         dif_pass = (self.pswd != self.retype_pswd)
         already_recorded_mail = self.isin_mail(self.mail)
         already_recorded_id = self.isin_id(self.user_id)
@@ -102,6 +102,8 @@ class SignUp(TemplateView):
             
             if at_isin:
                 self.params['msg'] += "<br>正しいメールアドレスを入力してください"
+            
+            #formに入力してあったデータを再代入
             self.params['form'] = SignupForm(request.POST)
             return render(request, 'sign_up/sign_up_page.html', self.params)
 
