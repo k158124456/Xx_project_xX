@@ -48,14 +48,18 @@ class GroupList(TemplateView):
 
 #招待したいユーザーを検索 → 検索に合致するユーザーがいたらその人を選択 → messageを入力して招待を送信
 class InviteMembers(TemplateView):
-    def get(self, request, project_id):
+    def __init__(self):
         self.params = {
             "project_name" : "" ,
             "form_serch_user" : InviteForm()["invited_user"],
             "form_message" : InviteForm()["message"],
             "degug" : [],
             "message" : "",
+            "user" : "",
         }
+
+    def get(self, request, project_id):
+        self.params["user"] = request.GET["usr"]
         self.params["project_name"] = project_id
 
         # クエリパラメータ(?usr=<username>)で指定されたusernameをinvite_userに格納
@@ -65,11 +69,22 @@ class InviteMembers(TemplateView):
 
         return render(request, 'mainpage/invite.html', self.params)
 
-    def post(self, request):
+    def post(self, request, project_id):
         # フォームから入力された各値を格納
+        self.params["user"] = request.GET["usr"]
+        self.params["project_name"] = project_id
         self.message = request.POST.get("message")
         self.invited_user = request.POST.get("invited_user")
+
+        if True:
+            self.params["msg"] = "そのようなユーザーIDは存在しません"
+            self.params["form_message"] = InviteForm(request.POST)["message"]
+            return render(request, "mainpage/invite.html", self.params)
+        else:
+            self.params["message"] = "招待メッセージを送りました。"
+            return render(request, "mainpage/invite_comp.html", self.params)
         
+        """
         #データベースに格納
         iv = Invite(
             project_name=self.invited_project, 
@@ -78,22 +93,10 @@ class InviteMembers(TemplateView):
             message=self.message
             )
         iv.save()
-
-        self.params["message"] = "招待メッセージを送りました。"
-
-        return render(request, "mainpage/invite.html", self.params)
-        
-        
-
-
-
-
-        
+        """
 
     
 
-
-        return render(request, 'mainpage/invite.html')
 
 class CreateGroup(TemplateView):
     def get(self, request, project_id):
