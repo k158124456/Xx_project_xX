@@ -1,0 +1,25 @@
+<h1>通知ページだよ</h1>
+<a href="/mainpage">メインページに戻る</a>
+<table>
+    <tr>
+        <th>プロジェクト名</th>
+        <th>招待したユーザー</th>
+        <th>メッセージ</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {%for item in items%}
+    <tr>
+        <td>{{item.project_name}}</td>
+        <td>{{item.invite_user}}</td>
+        <td>{{item.message}}</td>
+        <td><a href="/mainpage//notice/approve?project={{item.project_name}}">承認する</a></td>
+        <td><a href="/mainpage//notice/reject?project={{item.project_name}}">拒否する</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+
+

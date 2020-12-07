@@ -5,10 +5,12 @@
 
 <!-- formのクラスはform-controlだよ-->
 
-{{msg}}
+<p>{{msg|safe}}</p>
 <form action="/mainpage/{{project_name}}/invite?usr={{user}}" method="post">
 {% csrf_token %}
 {{form_serch_user}}
 {{form_message}}
 <input type="submit" value="招待">
 </form>
+<a href="/mainpage/{{project_name}}">メインページに戻る</a>
+{{debug}}
