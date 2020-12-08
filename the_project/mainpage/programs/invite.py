@@ -31,6 +31,16 @@ class InviteMembers(TemplateView):
     #自分自身に招待を送った場合(同じ場合False、異なる場合True)
     def owner(self, userid):
         return userid != self.params["user"]
+
+    #招待するユーザがすでにprojectに参加しているかどうかの判別を行う関数
+    def check_recorded(self, invited_id):
+        isin_Project = ProjectMember.objects.filter(
+                            projectlist__project_name=self.params["project_name"]
+                            ).filter(
+                                userlist__username=invited_id
+                            )
+        return isin_Project
+
     #################################################################################
 
     def get(self, request, project_id):
@@ -59,8 +69,9 @@ class InviteMembers(TemplateView):
         #登録できるか否か(Trueで登録可能、Falseで登録不可能)
         exist_ornot = self.exist_id(self.invited_user)
         owner_ornot = self.owner(self.invited_user)
+        already_recorded = not(self.check_recorded(self.invited_user))
 
-        recordable = exist_ornot and owner_ornot
+        recordable = exist_ornot and owner_ornot and already_recorded
         #recordable = False
         self.params["debug"] = owner_ornot
 
@@ -70,7 +81,7 @@ class InviteMembers(TemplateView):
                 invite_user=User.objects.get(username=self.invite_user), 
                 invited_user=User.objects.get(username=self.invited_user),
                 project_name=Project.objects.get(project_name=self.invited_project),
-                message=self.message
+                message=self.message,
                 )
             iv.save()
             self.params["message"] = "招待メッセージを送りました。"
@@ -81,6 +92,9 @@ class InviteMembers(TemplateView):
 
             if not(owner_ornot):
                 self.params["msg"] += "<br>自分自身を招待することはできません"
+            
+            if not(already_recorded):
+                self.params["msg"] += "<br>招待したユーザーはすでにこのプロジェクトに参加しています"
 
             self.params["msg"] = self.params["msg"][4:]
             self.params["form_message"] = InviteForm(request.POST)["message"]
