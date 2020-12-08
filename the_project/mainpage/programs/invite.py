@@ -99,14 +99,3 @@ class InviteMembers(TemplateView):
             self.params["msg"] = self.params["msg"][4:]
             self.params["form_message"] = InviteForm(request.POST)["message"]
             return render(request, "mainpage/invite.html", self.params)            
-        """
-        #データベースに格納
-        iv = Invite(
-            project_name=self.invited_project, 
-            invite_user=self.invite_user, 
-            invited_user=self.invited_user,
-            message=self.message
-            )
-        iv.save()
-        """
-
