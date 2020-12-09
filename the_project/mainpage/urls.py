@@ -10,6 +10,10 @@ urlpatterns = [
     path('<project_id>/', views.GroupList.as_view(), name='grouplist'),
     path('<project_id>/invite', views.InviteMembers.as_view(), name='invite'),
     path('<project_id>/create', views.CreateGroup.as_view(), name='create'),
+    path('/notice', views.Notify.as_view(), name='notify'),
+    path('/notice/approve', views.Accept.as_view(), name='accept'),
+    path('/notice/reject', views.Reject.as_view(), name='reject'),
+    #path('/notice/delete', views.Delete.as_view(), name='delete'),
     # グループページに飛ばすために、ここでgrouppageをインクルードしている
     path('<project_id>/grouppage', include('grouppage.urls'))
 ]
