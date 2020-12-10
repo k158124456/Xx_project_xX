@@ -25,14 +25,14 @@ class GroupList(TemplateView):
             project_id=Project.objects.get(pk=project_id)
             )
         # admin_or_notにはグループ作成権限があるかどうかを指定
-        admin_or_not = projects.filter(projectlist__id=project_id)[0].role
+        admin_or_not = projects.filter(projectlist__uuid=project_id)[0].role
         
 
         params = {
             "userdata" : str(request.user),
             "project" : projects,
             "groups" : groups,
-            "project_name" : Project.objects.get(id=project_id),
+            "project_name" : Project.objects.get(uuid=project_id),
             "admin_or_not" : admin_or_not,
         }
         return render(request, 'mainpage/grouppage.html', params)

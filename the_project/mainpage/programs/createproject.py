@@ -30,15 +30,15 @@ class CreateProject(TemplateView):
                 project_name = project_name
             )
             proj.save()
+            proj.uuid
             pm = ProjectMember(
                 userlist=User.objects.get(username=request.user),
-                projectlist=Project.objects.get(project_name=project_name),
+                projectlist=Project.objects.get(uuid=proj.uuid),
                 displayname="プロジェクト作成者",
                 role=1, 
             )
             pm.save()
             self.params["message"] = project_name + "を作成しました"
-
             return render(request, "mainpage/createptoject.html", self.params)
         else:
 

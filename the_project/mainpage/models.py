@@ -6,13 +6,13 @@ import uuid
 # Create your models here.
 
 class Project(models.Model):
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False),
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     project_name=models.CharField(max_length=100,  null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Group(models.Model):
     #group_id=models.CharField(max_length=100,primary_key=True)
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False),
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     project_id=models.ForeignKey(Project, on_delete=models.CASCADE)
     group_name=models.CharField(max_length=100,  null=True)
     created_at = models.DateTimeField(auto_now_add=True)

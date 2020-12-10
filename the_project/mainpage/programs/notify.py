@@ -22,11 +22,11 @@ class Notify(TemplateView):
         }
         # リダイレクトされた時に一緒に渡されたクエリパラメータから判断
         if 'a_project' in request.GET:
-            params["message"] = request.GET["a_project"] + "に加入しました"
+            params["message"] = Project.objects.get(uuid=request.GET["a_project"]) + "に加入しました"
         if 'd_project' in request.GET:
-            params["message"] = request.GET["d_project"] + "への招待を全て拒否しました"
+            params["message"] = Project.objects.get(request.GET["d_project"]) + "への招待を全て拒否しました"
         if 'message' in request.GET:
-            params["message"] = request.GET["message"] + "にはすでに加入しています。招待を削除しました"
+            params["message"] = Project.objects.get(request.GET["message"]).project_name + "にはすでに加入しています。招待を削除しました"
         
         
         return render(request, 'mainpage/notify.html', params)
@@ -37,7 +37,7 @@ class Accept(TemplateView):
         projectname = request.GET['project']
         #projectメンバの中で、招待されているprojectでフィルタし、その上でログインユーザでフィルタリングした時に、中に何も入っていなければ登録される
         already_recorded = ProjectMember.objects.filter(
-            projectlist=Project.objects.get(project_name=projectname)
+            projectlist=Project.objects.get(uuid=projectname)
             ).filter(userlist=request.user)
         
         #存在しているかどうか
@@ -45,7 +45,7 @@ class Accept(TemplateView):
         #存在しているのであれば、招待されているものを全て消去
         if recordable:
             inv = Invite.objects.filter(
-                project_name=Project.objects.get(project_name=projectname)
+                project_name=Project.objects.get(uuid=projectname)
                 )
             inv.delete()
             redirect_url = reverse('mainpage:notify')
@@ -55,7 +55,7 @@ class Accept(TemplateView):
         else:
             pm = ProjectMember(
                 userlist = request.user,
-                projectlist = Project.objects.get(project_name=projectname),
+                projectlist = Project.objects.get(uuid=projectname),
                 displayname = "新参者",
                 role = 0,
             )
@@ -63,7 +63,7 @@ class Accept(TemplateView):
 
             #招待されているものを削除
             inv = Invite.objects.filter(
-                project_name=Project.objects.get(project_name=projectname)
+                project_name=Project.objects.get(uuid=projectname)
                 )
             inv.delete()
 

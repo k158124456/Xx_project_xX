@@ -1,7 +1,7 @@
-<h1>プロジェクト作成ページ</h1>
+<h1>グループを作成する</h1>
 {{message}}
 <p>プロジェクトに設定できる名前は２０字までです</p>
-<form action="/mainpage/createproject/" method="post">
+<form action="/mainpage/project_{{project_name}}/creategroup" method="post">
     {% csrf_token %}
     {{form}}
     <input type="submit" value="作成">
