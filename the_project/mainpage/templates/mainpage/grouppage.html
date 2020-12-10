@@ -11,24 +11,24 @@
 
         <a  href="{% url 'sign_in:sign_out' %}">Sign out</a>
         <p>ようこそ{{ userdata }}さん</p>
-        <a  href="/mainpage//notice">通知</a>
+        <a  href="/mainpage/notice/notice">通知</a>
         <p>参加しているプロジェクト一覧</p>
         {%for item in project%}
-        <a href="/mainpage/{{item.projectlist}}">{{item.projectlist}}</a><br>
+        <a href="/mainpage/project_{{item.projectlist}}">{{item.projectlist}}</a><br>
         {% endfor %}
         <p>{{project_name}}に存在しているグループ一覧</p>
 
         <!--ユーザーが管理者かどうかを判別、管理者なら新しいグループを作成できるようにする-->
         {% if admin_or_not == 1 %}
-        <a href="/mainpage/{{project_name}}/create">新しいグループを作成する</a><br>
+        <a href="/mainpage/project_{{project_name}}/create">新しいグループを作成する</a><br>
         {% endif %} 
         
         <!--グループはgroupnameにクエリパラメータを渡してページ遷移-->
         {%for group in groups%}
-        <a href="/mainpage/{{project_name}}/grouppage?groupname={{group.group_name}}">{{group.group_name}}</a><br>
+        <a href="/mainpage/project_{{project_name}}/grouppage?groupname={{group.group_name}}">{{group.group_name}}</a><br>
         {% endfor %}
         {% if admin_or_not == 1 %}
-        <a href="/mainpage/{{project_name}}/invite?usr={{userdata}}">{{project_name}}にメンバーを招待する</a>
+        <a href="/mainpage/project_{{project_name}}/invite?usr={{userdata}}">{{project_name}}にメンバーを招待する</a>
         {% endif %}
 
 
