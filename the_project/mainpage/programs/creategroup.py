@@ -6,14 +6,25 @@ from ..models import Project, Group, ProjectMember, Status, Invite
 from django.contrib.auth.models import User
 import pandas as pd
 from django.http import HttpResponse
-from ..forms import InviteForm
+from ..forms import CreateGroupForm
 
 class CreateGroup(TemplateView):
     def get(self, request, project_id):
-        params = {
-            "project_name" : "" 
+        self.params = {
+            "form" : CreateGroupForm()["group_name"],
+            "group_name" : "" 
         }
-        params["project_name"] = project_id
-        return render(request, 'mainpage/create.html', params)
+        self.params["project_name"] = project_id
+        return render(request, 'mainpage/creategroup.html', self.params)
     def post(self, request):
-        return render(request, 'mainpage/create.html')
+        group_name = request.POST.get("group_name")
+        self.params["group_name"] = Project.objects.all()[0][0]
+        recordable = True
+
+        if recordable:
+            group = Group(
+                project_id = Project.objects.get()
+            )
+
+
+            return render(request, 'mainpage/creategroup.html')

@@ -1,45 +1,20 @@
-{% load static %}
-<! dtype html >
-<html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <title>{{title}}</title>
-    </head>
-    <body>
-        <h1>mainpageです</h1>
-        {% if user.is_authenticated %}
+{% extends 'mainpage/mainpage.html' %}
 
-        <a  href="{% url 'sign_in:sign_out' %}">Sign out</a>
-        <p>ようこそ{{ userdata }}さん</p>
-        <a  href="/mainpage/notice/notice">通知</a>
-        <p>参加しているプロジェクト一覧</p>
-        {%for item in project%}
-        <a href="/mainpage/project_{{item.projectlist}}">{{item.projectlist}}</a><br>
-        {% endfor %}
-        <p>{{project_name}}に存在しているグループ一覧</p>
+{% block content %}
+<br>
+<a href="">プロジェクト設定</a>
+<p>{{project_name}}に存在しているグループ一覧</p>
+<!--ユーザーが管理者かどうかを判別、管理者なら新しいグループを作成できるようにする-->
+{% if admin_or_not == 1 %}
+<a href="/mainpage/project_{{project_name}}/create">新しいグループを作成する</a><br>
+{% endif %} 
 
-        <!--ユーザーが管理者かどうかを判別、管理者なら新しいグループを作成できるようにする-->
-        {% if admin_or_not == 1 %}
-        <a href="/mainpage/project_{{project_name}}/create">新しいグループを作成する</a><br>
-        {% endif %} 
-        
-        <!--グループはgroupnameにクエリパラメータを渡してページ遷移-->
-        {%for group in groups%}
-        <a href="/mainpage/project_{{project_name}}/grouppage?groupname={{group.group_name}}">{{group.group_name}}</a><br>
-        {% endfor %}
-        {% if admin_or_not == 1 %}
-        <a href="/mainpage/project_{{project_name}}/invite?usr={{userdata}}">{{project_name}}にメンバーを招待する</a>
-        {% endif %}
+<!--グループはgroupnameにクエリパラメータを渡してページ遷移-->
+{%for group in groups%}
+<a href="/mainpage/project_{{project_name}}/grouppage?groupname={{group.group_name}}">{{group.group_name}}</a><br>
+{% endfor %}
+{% if admin_or_not == 1 %}
+<a href="/mainpage/project_{{project_name}}/invite?usr={{userdata}}">{{project_name}}にメンバーを招待する</a>
+{% endif %}
 
-
-
-
-
-
-        {% else %}
-        <p><a  href="{% url 'sign_in:sign_in' %}">Sign in</a>が必要なページです</p>
-        {% endif %}
-        </body>
-</html>
-
-
+{% endblock %}
