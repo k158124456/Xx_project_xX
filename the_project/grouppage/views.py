@@ -10,28 +10,26 @@ from mainpage.forms import InviteForm
 class RoomPage(TemplateView):
     def __init__(self):
         
-        params = {
+        self.params = {
             "userdata" : "",
             "project" : "",
         }
     
     def get(self,request,project_id):
-        projects = ProjectMember.objects.filter(userlist=request.user)
-        groups = Group.objects.filter(project_id__project_name=project_id)
-        admin_or_not = projects.filter(projectlist__project_name=project_id)[0].role
-        statuss = Status.objects.filter(group_id__group_name=request.GET["groupname"])
+        #groupid と　projectidを取得
+        groupID = request.GET["groupname"]
+        projectID = project_id
         
-        params = {
-            "userdata" : str(request.user),
-            "project" : projects,
-            "groups" : groups,
-            "project_name" : project_id,
-            "admin_or_not" : admin_or_not,
-            "statuss" : statuss,
-            "group_name" : "group_name",
-            
-        }
-        return render(request, 'grouppage/roompage.html', params)
+        #groupインスタンスを取得
+        group = Group.objects.get(uuid=groupID)
+        status = Status.objects.filter(group_id__uuid=groupID)
+
+        groupname = group.group_name
+        self.params["statuses"] = status
+        self.params["groupname"] = groupname
+        self.params["projectid"] = projectID
+
+        return render(request, 'grouppage/roompage.html', self.params)
 
 
 # Create your views here.

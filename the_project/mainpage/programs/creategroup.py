@@ -33,6 +33,18 @@ class CreateGroup(TemplateView):
                 group_name=group_name,
             )
             group.save()
-            self.params["message"] = group_name + "を作成しました"
-            
+            #ステータスにグループ、メンバー、ステータスを追加する
+            ##まず、プロジェクトに所属している人間を取得
+            project_member = ProjectMember.objects.filter(
+                projectlist__uuid=project_id
+            )
+            for member in project_member:
+                record_status = Status(
+                    userlist=User.objects.get(username=member.userlist),
+                    group_id=Group.objects.get(uuid=group.uuid),
+                    status=0
+                )
+                record_status.save()
+
             return render(request, 'mainpage/creategroup.html', self.params)
+

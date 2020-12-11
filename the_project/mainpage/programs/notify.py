@@ -22,9 +22,9 @@ class Notify(TemplateView):
         }
         # リダイレクトされた時に一緒に渡されたクエリパラメータから判断
         if 'a_project' in request.GET:
-            params["message"] = Project.objects.get(uuid=request.GET["a_project"]) + "に加入しました"
+            params["message"] = Project.objects.get(uuid=request.GET["a_project"]).project_name + "に加入しました"
         if 'd_project' in request.GET:
-            params["message"] = Project.objects.get(request.GET["d_project"]) + "への招待を全て拒否しました"
+            params["message"] = Project.objects.get(request.GET["d_project"]).project_name + "への招待を全て拒否しました"
         if 'message' in request.GET:
             params["message"] = Project.objects.get(request.GET["message"]).project_name + "にはすでに加入しています。招待を削除しました"
         
@@ -33,6 +33,7 @@ class Notify(TemplateView):
 
 class Accept(TemplateView):
     def get(self, request):
+        user = request.user
         #パラメータのprojectを読み取り
         projectname = request.GET['project']
         #projectメンバの中で、招待されているprojectでフィルタし、その上でログインユーザでフィルタリングした時に、中に何も入っていなければ登録される
@@ -49,18 +50,30 @@ class Accept(TemplateView):
                 )
             inv.delete()
             redirect_url = reverse('mainpage:notify')
-            return redirect(redirect_url+"?message="+projectname)
+            return redirect(redirect_url+"?message="+str(projectname))
 
         #存在しない場合、projectメンバーとして登録される
         else:
             pm = ProjectMember(
-                userlist = request.user,
+                userlist = user,
                 projectlist = Project.objects.get(uuid=projectname),
                 displayname = "新参者",
                 role = 0,
             )
             pm.save()
 
+            #プロジェクトに登録してある全てのグループについてステータスDBに情報を追加する
+            ## プロジェクトに存在するグループを取得
+            groups = Group.objects.filter(project_id__uuid=projectname)
+
+            for group in groups:
+                member_status = Status(
+                    userlist=user,
+                    group_id=group,
+                    status=0
+                )
+                member_status.save()
+            
             #招待されているものを削除
             inv = Invite.objects.filter(
                 project_name=Project.objects.get(uuid=projectname)
@@ -68,7 +81,7 @@ class Accept(TemplateView):
             inv.delete()
 
             redirect_url = reverse('mainpage:notify')
-            return redirect(redirect_url+"?a_project="+projectname)
+            return redirect(redirect_url+"?a_project="+str(projectname))
 
 class Reject(TemplateView):
     def get(self, request):
@@ -79,4 +92,4 @@ class Reject(TemplateView):
             )
         inv.delete()
 
-        return redirect(redirect_url+"?d_project="+projectname)
+        return redirect(redirect_url+"?d_project="+str(projectname))

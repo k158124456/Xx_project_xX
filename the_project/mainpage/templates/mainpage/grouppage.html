@@ -3,7 +3,7 @@
 {% block content %}
 <br>
 <a href="">プロジェクト設定</a>
-<p>{{selected_project.project_name}}に存在しているグループ一覧</p>
+<p>{{selected_project.projectlist.project_name}}に存在しているグループ一覧</p>
 <!--ユーザーが管理者かどうかを判別、管理者なら新しいグループを作成できるようにする-->
 {% if admin_or_not == 1 %}
 <a href="/mainpage/project_{{project_uuid}}/creategroup">新しいグループを作成する</a><br>
@@ -14,7 +14,7 @@
 <a href="/mainpage/project_{{project_uuid}}/grouppage?groupname={{group.uuid}}">{{group.group_name}}</a><br>
 {% endfor %}
 {% if admin_or_not == 1 %}
-<a href="/mainpage/project_{{project_uuid}}/invite?usr={{userdata}}">{{selected_project.project_name}}にメンバーを招待する</a>
+<a href="/mainpage/project_{{project_uuid}}/invite?usr={{userdata}}">{{selected_project.projectlist.project_name}}にメンバーを招待する</a>
 {% endif %}
 
 {% endblock %}

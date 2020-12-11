@@ -16,7 +16,6 @@ class Group(models.Model):
     project_id=models.ForeignKey(Project, on_delete=models.CASCADE)
     group_name=models.CharField(max_length=100,  null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    #image=
 
 class ProjectMember(models.Model):
     userlist = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -29,11 +28,9 @@ class Status(models.Model):
     userlist = models.ForeignKey(User, on_delete=models.CASCADE)
     status= models.IntegerField(default='SOME CATEGORY')
 
-
 class Invite(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
     invite_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invite_user')
     invited_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='invited_user')
     message = models.CharField(max_length=100, blank=True, default='SOME CATEGORY')
     created_at = models.DateTimeField(auto_now_add=True)
-
