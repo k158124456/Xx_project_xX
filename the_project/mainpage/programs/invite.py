@@ -33,9 +33,9 @@ class InviteMembers(TemplateView):
         return userid != self.params["user"]
 
     #招待するユーザがすでにprojectに参加しているかどうかの判別を行う関数
-    def check_recorded(self, invited_id):
+    def check_recorded(self, invited_id, project_id):
         isin_Project = ProjectMember.objects.filter(
-                            projectlist__project_name=self.params["project_name"]
+                            projectlist__uuid=project_id
                             ).filter(
                                 userlist__username=invited_id
                             )
@@ -45,23 +45,23 @@ class InviteMembers(TemplateView):
 
     def get(self, request, project_id):
         self.params["user"] = request.GET["usr"]
-        self.params["project_name"] = project_id
+        self.params["project"] = Project.objects.get(uuid=project_id)
 
         # クエリパラメータ(?usr=<username>)で指定されたusernameをinvite_userに格納
         self.invite_user = request.GET["usr"]
         # クエリパラメータで指定されているプロジェクトネームを格納
-        self.invited_project = self.params["project_name"]
+        self.invited_project = self.params["project"]
 
         return render(request, 'mainpage/invite.html', self.params)
 
     def post(self, request, project_id):
         # フォームから入力された各値を格納
         self.params["user"] = request.GET["usr"]
-        self.params["project_name"] = project_id
+        self.params["project"] = Project.objects.get(uuid=project_id)
         self.message = request.POST.get("message")
         self.invited_user = request.POST.get("invited_user")
         self.invite_user = self.params["user"]
-        self.invited_project = self.params["project_name"]
+        self.invited_project = self.params["project"]
 
         
         
@@ -69,7 +69,7 @@ class InviteMembers(TemplateView):
         #登録できるか否か(Trueで登録可能、Falseで登録不可能)
         exist_ornot = self.exist_id(self.invited_user)
         owner_ornot = self.owner(self.invited_user)
-        already_recorded = not(self.check_recorded(self.invited_user))
+        already_recorded = not(self.check_recorded(self.invited_user, project_id))
 
         recordable = exist_ornot and owner_ornot and already_recorded
         #recordable = False
@@ -80,7 +80,7 @@ class InviteMembers(TemplateView):
                 
                 invite_user=User.objects.get(username=self.invite_user), 
                 invited_user=User.objects.get(username=self.invited_user),
-                project_name=Project.objects.get(project_name=self.invited_project),
+                project_name=Project.objects.get(uuid=project_id),
                 message=self.message,
                 )
             iv.save()
