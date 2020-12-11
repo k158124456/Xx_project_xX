@@ -14,7 +14,7 @@ class MainPage(TemplateView):
 
         params = {
             "userdata" : str(request.user),
-            "project" : projects
+            "projects" : projects
         }
 
         return render(request, 'mainpage/mainpage.html', params)

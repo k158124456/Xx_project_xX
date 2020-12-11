@@ -14,8 +14,8 @@
         <a  href="/mainpage/notice/notice">通知</a>
         <p>参加しているプロジェクト一覧</p>
         <a href="{% url 'mainpage:create_project' %}">新しいプロジェクトを作成する</a><br>
-        {%for item in project%}
-        <a href="/mainpage/project_{{item.projectlist.uuid}}">{{item.projectlist.project_name}}</a><br>
+        {%for project in projects%}
+        <a href="/mainpage/project_{{project.projectlist.uuid}}">{{project.projectlist.project_name}}</a><br>
         {% endfor %}
         <!--↓group一覧はmainpageを後から挿入する形にする-->
         {% block content %}
