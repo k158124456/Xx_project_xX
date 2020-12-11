@@ -33,9 +33,9 @@ class InviteMembers(TemplateView):
         return userid != self.params["user"]
 
     #招待するユーザがすでにprojectに参加しているかどうかの判別を行う関数
-    def check_recorded(self, invited_id):
+    def check_recorded(self, invited_id, project_id):
         isin_Project = ProjectMember.objects.filter(
-                            projectlist__project_name=self.params["project_name"]
+                            projectlist__uuid=project_id
                             ).filter(
                                 userlist__username=invited_id
                             )
@@ -69,7 +69,7 @@ class InviteMembers(TemplateView):
         #登録できるか否か(Trueで登録可能、Falseで登録不可能)
         exist_ornot = self.exist_id(self.invited_user)
         owner_ornot = self.owner(self.invited_user)
-        already_recorded = not(self.check_recorded(self.invited_user))
+        already_recorded = not(self.check_recorded(self.invited_user, project_id))
 
         recordable = exist_ornot and owner_ornot and already_recorded
         #recordable = False
