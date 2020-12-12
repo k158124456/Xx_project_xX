@@ -11,7 +11,7 @@
 
         <a  href="{% url 'sign_in:sign_out' %}">Sign out</a>
         <p>ようこそ{{ userdata }}さん</p>
-        <a  href="/mainpage/notice/notice">通知</a>
+        <a  href="/mainpage/notice/">通知</a>
         <p>参加しているプロジェクト一覧</p>
         <a href="{% url 'mainpage:create_project' %}">新しいプロジェクトを作成する</a><br>
         {%for project in projects%}

@@ -6,4 +6,5 @@ admin.site.register(Group)
 admin.site.register(ProjectMember)
 admin.site.register(Status)
 admin.site.register(Invite)
+admin.site.register(Chat)
 # Register your models here.

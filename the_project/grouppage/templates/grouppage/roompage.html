@@ -14,16 +14,41 @@
             <th>ステータス</th>
         </tr>
         {% for status in statuses %}
-        <tr>
-            <td>{{status.userlist}}</td>
+            <tr>
+            {% for projectmember in projectmembers %}
+                {% if projectmember.userlist == status.userlist %}
+                    <td>{{projectmember.displayname}}</td>
+                {% endif %}
+            {% endfor %}
             <td>{{status.status}}</td>
-        </tr>
+            </tr>
         {% endfor %}
 
     </table>
     <a href="">グループ設定</a>
     <a href="/mainpage/project_{{projectid}}">プロジェクトページに戻る</a>
 
+    <br><br><br>
+
+    <h3>チャット</h3>
+    <table>
+    <tr>
+        <th>ユーザー名</th>
+        <th>時間</th>
+        <th>内容</th>
+    </tr>
+    {% for chat in chats %}
+        <tr>
+        {% for projectmember in projectmembers %}
+            {% if projectmember.userlist == chat.userlist %}    
+                <td>{{projectmember.displayname}}</td>
+            {% endif %}
+        {% endfor %}
+        <td>{{chat.datetime}}</td>
+        <td>{{chat.chat_messeage}}</td>
+        </tr>
+    {% endfor %}
+    </table>
     </body>
 </html>
 
