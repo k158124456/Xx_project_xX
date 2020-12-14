@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
-from mainpage.models import Project, Group, ProjectMember, Status, Invite,Chat
+from mainpage.models import Project, Group, ProjectMember, Status, Invite,Chat,Status_detail
 import pandas as pd
 from django.http import HttpResponse
 from .forms import ChatForm
@@ -28,14 +28,16 @@ class RoomPage(TemplateView):
         status = Status.objects.filter(group_id__uuid=groupID)
         project = Project.objects.get(uuid=projectID)
         chat = Chat.objects.filter(group_id__uuid=groupID)
-        self.params["projectmembers"] = ProjectMember.objects.filter(projectlist=project)
-
         groupname = group.group_name
+        status_detail = Status_detail.objects.filter(projectlist__uuid=projectID)
+
+        self.params["projectmembers"] = ProjectMember.objects.filter(projectlist=project)
         self.params["projectid"] = projectID
         self.params["statuses"] = status
         self.params["groupname"] = groupname
         self.params["chats"] = chat
         self.params["group"] = group
+        self.params["status_details"] = status_detail
 
         
 
@@ -52,6 +54,7 @@ class RoomPage(TemplateView):
         status = Status.objects.filter(group_id__uuid=groupID)
         project = Project.objects.get(uuid=projectID)
         chat = Chat.objects.filter(group_id__uuid=groupID)
+        status_detail = Status_detail.objects.filter(projectlist__uuid=projectID)
         
 
         
@@ -75,6 +78,7 @@ class RoomPage(TemplateView):
         self.params["groupname"] = groupname
         self.params["group"] = group
         self.params["chats"] = chat
+        self.params["status_details"] = status_detail
 
 
         return render(request, 'grouppage/roompage.html', self.params)

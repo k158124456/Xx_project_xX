@@ -24,10 +24,15 @@ class ProjectMember(models.Model):
     displayname=models.CharField(max_length=100,default='SOME CATEGORY')
     role=models.IntegerField(default='SOME CATEGORY')
 
+class Status_detail(models.Model):
+    projectlist = models.ForeignKey(Project, on_delete=models.CASCADE)
+    status_id = models.IntegerField(default='SOME CATEGORY')
+    detail = models.CharField(max_length=10,default='')
+
 class Status(models.Model):
     group_id=models.ForeignKey(Group, on_delete=models.CASCADE)
     userlist = models.ForeignKey(User, on_delete=models.CASCADE)
-    status= models.IntegerField(default='SOME CATEGORY')
+    status= models.IntegerField(default=0)
 
 class Invite(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
@@ -41,4 +46,10 @@ class Chat(models.Model):
     userlist = models.ForeignKey(User, on_delete=models.CASCADE)
     datetime = models.DateTimeField(default=timezone.now)
     chat_messeage = models.TextField(max_length=1000)
+
+
+
+
+
+
 

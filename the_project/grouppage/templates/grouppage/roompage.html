@@ -24,6 +24,8 @@
             </tr>
         {% endfor %}
 
+   
+
     </table>
     <a href="">グループ設定</a>
     <a href="/mainpage/project_{{projectid}}">プロジェクトページに戻る</a>
@@ -33,18 +35,18 @@
     <h3>チャット</h3>
     <table>
     <tr>
-        <th>ユーザー名</th>
         <th>時間</th>
+        <th>ユーザー名</th>
         <th>内容</th>
     </tr>
     {% for chat in chats %}
         <tr>
+        <td>{{chat.datetime}}</td>
         {% for projectmember in projectmembers %}
             {% if projectmember.userlist == chat.userlist %}    
                 <td>{{projectmember.displayname}}</td>
             {% endif %}
         {% endfor %}
-        <td>{{chat.datetime}}</td>
         <td>{{chat.chat_messeage}}</td>
         </tr>
     {% endfor %}
