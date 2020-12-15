@@ -98,4 +98,4 @@ class InviteMembers(TemplateView):
 
             self.params["msg"] = self.params["msg"][4:]
             self.params["form_message"] = InviteForm(request.POST)["message"]
-            return render(request, "mainpage/invite.html", self.params)            
+            return render(request, "mainpage/invite.html", self.params)

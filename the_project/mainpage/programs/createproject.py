@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 # Create your views here.
 from django.contrib.auth.decorators import login_required
-from ..models import Project, Group, ProjectMember, Status, Invite
+from ..models import Project, Group, ProjectMember, Status, Invite,Status_detail
 from django.contrib.auth.models import User
 import pandas as pd
 from django.http import HttpResponse
@@ -39,6 +39,20 @@ class CreateProject(TemplateView):
             )
             pm.save()
             self.params["message"] = project_name + "を作成しました"
+            
+            sd = Status_detail(
+                projectlist=Project.objects.get(uuid=proj.uuid),
+                status_id = 0,
+                detail = "オフライン",
+            )
+            sd.save()
+            sd = Status_detail(
+                projectlist=Project.objects.get(uuid=proj.uuid),
+                status_id = 1,
+                detail = "オンライン",
+            )
+            sd.save()
+            
             return render(request, "mainpage/createptoject.html", self.params)
         else:
 
