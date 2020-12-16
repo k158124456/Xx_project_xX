@@ -4,6 +4,7 @@ from .programs.mainpage import *
 from .programs.grouplist import *
 from .programs.invite import *
 from .programs.notify import *
+from .programs.project_settings import *
 
 
 # だいぶ複雑化してきてみにくくなってきたからinportしてくるようにしたよ

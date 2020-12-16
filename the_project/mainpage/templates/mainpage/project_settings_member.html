@@ -1,0 +1,18 @@
+{% extends 'mainpage/project_settings_base.html' %}
+{% block content %}
+<p>メンバーの設定を行います</p>
+<table>
+    <tr>
+        <th>ユーザー名</th>
+        <th>役職</th>
+    </tr>
+    {%for user in userlist%}
+    <tr>
+        <td>{{user.displayname}}</td>
+        <td>{{user.role}}</td>
+        
+        
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
