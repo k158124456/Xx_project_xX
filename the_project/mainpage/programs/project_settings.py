@@ -18,9 +18,9 @@ class ProjectSettings(TemplateView):
     def get(self, request, project_id):
         self.params = {
             "project_uuid" : project_id,
-            "form" : "aaaa",#NewProjectName(),
-            "debug" : "aaaa"
         }
+        role = ProjectMember.objects.filter(projectlist__uuid=project_id).get(userlist=request.user).role
+        self.params["role"] = role
         return render(request, 'mainpage/project_settings_main.html', self.params)
 
 class ProjectSettings_nemesetting(TemplateView):
@@ -34,6 +34,8 @@ class ProjectSettings_nemesetting(TemplateView):
             "form" : NewProjectName()["new_project_name"],
             "message" : ""
         }
+        role = ProjectMember.objects.filter(projectlist__uuid=project_id).get(userlist=request.user).role
+        self.params["role"] = role
         return render(request, 'mainpage/project_settings_namesetting.html', self.params)
     def post(self, request, project_id):
         self.params = {
@@ -41,6 +43,8 @@ class ProjectSettings_nemesetting(TemplateView):
             "form" : NewProjectName()["new_project_name"],
             "message" : ""
         }
+        role = ProjectMember.objects.filter(projectlist__uuid=project_id).get(userlist=request.user).role
+        self.params["role"] = role
         project = Project.objects.get(uuid=project_id)
         new_project_name = request.POST.get("new_project_name")
         project.project_name = new_project_name
@@ -59,6 +63,8 @@ class ProjectSettings_display_name(TemplateView):
             "form" : NewDisplayName()["new_display_name"],
             "message" : ""
         }
+        role = ProjectMember.objects.filter(projectlist__uuid=project_id).get(userlist=request.user).role
+        self.params["role"] = role
         return render(request, 'mainpage/project_settings_display_name.html', self.params)
     
     def post(self, request, project_id):
@@ -67,6 +73,8 @@ class ProjectSettings_display_name(TemplateView):
             "form" : NewDisplayName()["new_display_name"],
             "message" : ""
         }
+        role = ProjectMember.objects.filter(projectlist__uuid=project_id).get(userlist=request.user).role
+        self.params["role"] = role
         project = ProjectMember.objects.filter(projectlist__uuid=project_id)
         user = project.get(userlist=request.user)
         new_display_name = request.POST.get("new_display_name")
@@ -84,8 +92,13 @@ class ProjectSettings_member(TemplateView):
         self.params = {
             "project_uuid" : project_id
         }
-        member = ProjectMember.objects.filter(projectlist__uuid=project_id)
-        self.params["userlist"] = member
+        role = ProjectMember.objects.filter(projectlist__uuid=project_id).get(userlist=request.user).role
+        self.params["role"] = role
+        all_members = ProjectMember.objects.filter(projectlist__uuid=project_id)
+        members = all_members.exclude(userlist=request.user)
+        own = all_members.get(userlist=request.user)
+        self.params["me"] = own
+        self.params["userlist"] = members
         return render(request, 'mainpage/project_settings_member.html', self.params)
 
 class ProjectSettings_delete(TemplateView):
@@ -97,6 +110,8 @@ class ProjectSettings_delete(TemplateView):
         self.params = {
             "project_uuid" : project_id
         }
+        role = ProjectMember.objects.filter(projectlist__uuid=project_id).get(userlist=request.user).role
+        self.params["role"] = role
         return render(request, 'mainpage/project_settings_delete.html', self.params)
 
 class ProjectSettings_delete_verification(TemplateView):

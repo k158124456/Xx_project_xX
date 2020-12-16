@@ -47,9 +47,3 @@ class Chat(models.Model):
     datetime = models.DateTimeField(default=timezone.now)
     chat_messeage = models.TextField(max_length=1000)
 
-
-
-
-
-
-
