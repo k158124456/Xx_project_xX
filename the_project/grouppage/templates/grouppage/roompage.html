@@ -8,6 +8,10 @@
     <body>
     <h1>{{groupname}}です</h1>
     <h2>活動中</h2>
+
+    ディスプレイネーム:{{displayname_role.displayname}}<br>
+    ロール:{{displayname_role.role}}<br><br>
+    
     <table>
         <tr>
             <th>ユーザー名</th>
@@ -23,10 +27,9 @@
             <td>{{status.status}}</td>
             </tr>
         {% endfor %}
-
-   
-
     </table>
+
+
     <a href="">グループ設定</a>
     <a href="/mainpage/project_{{projectid}}">プロジェクトページに戻る</a>
 

@@ -31,6 +31,9 @@ class RoomPage(TemplateView):
         groupname = group.group_name
         status_detail = Status_detail.objects.filter(projectlist__uuid=projectID)
 
+        d_r=ProjectMember.objects.filter(projectlist=project).filter(userlist=request.user)
+
+
         self.params["projectmembers"] = ProjectMember.objects.filter(projectlist=project)
         self.params["projectid"] = projectID
         self.params["statuses"] = status
@@ -38,6 +41,7 @@ class RoomPage(TemplateView):
         self.params["chats"] = chat
         self.params["group"] = group
         self.params["status_details"] = status_detail
+        self.params["displayname_role"] = d_r[0]
 
         
 
@@ -71,6 +75,8 @@ class RoomPage(TemplateView):
 
         chat = Chat.objects.filter(group_id__uuid=groupID)
 
+        d_r=ProjectMember.objects.filter(projectlist=project).filter(userlist=request.user)
+
         groupname = group.group_name
         self.params["projectmembers"] = ProjectMember.objects.filter(projectlist=project)
         self.params["projectid"] = projectID
@@ -79,6 +85,7 @@ class RoomPage(TemplateView):
         self.params["group"] = group
         self.params["chats"] = chat
         self.params["status_details"] = status_detail
+        self.params["displayname_role"] = d_r[0]
 
 
         return render(request, 'grouppage/roompage.html', self.params)
