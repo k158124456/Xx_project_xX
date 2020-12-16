@@ -1,0 +1,11 @@
+{% extends 'mainpage/project_settings_base.html' %}
+{% block content %}
+<p>プロジェクトの名前を変更します</p>
+<p>新しいプロジェクト名を入力</p>
+<form action="/mainpage/project_{{project_uuid}}/setting/namesetting" method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="変更する">
+</form>
+<p>{{message}}</p>
+{% endblock %}

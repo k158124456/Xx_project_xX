@@ -1,0 +1,40 @@
+{% extends 'mainpage/project_settings_base.html' %}
+{% block content %}
+<p>メンバーの設定を行います</p>
+{% if role == 1 %}
+<table>
+    <tr>
+        <th>ユーザー名</th>
+        <th>役職</th>
+    </tr>
+    {%for user in userlist%}
+    <tr>
+        <td>{{user.displayname}}</td>
+        <td>{%if user.role == 1%}管理者{%else%}メンバー{%endif%}</td>
+        
+        
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>権限の変更は管理者のみ行うことができます</p>
+<table>
+    <tr>
+        <th>ユーザー名</th>
+        <th>役職</th>
+    </tr>
+    <tr>
+        <td>{{me.displayname}}</td>
+        <td>{%if me.role == 1%}管理者{%else%}メンバー{%endif%}</td>
+    </tr>
+    {%for user in userlist%}
+    <tr>
+        <td>{{user.displayname}}</td>
+        <td>{%if user.role == 1%}管理者{%else%}メンバー{%endif%}</td>
+        
+        
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

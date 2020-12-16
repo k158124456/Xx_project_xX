@@ -8,7 +8,7 @@ from django.utils import timezone
 
 class Project(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    project_name=models.CharField(max_length=100,  null=True)
+    project_name = models.CharField(max_length=100,  null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Group(models.Model):
@@ -46,10 +46,4 @@ class Chat(models.Model):
     userlist = models.ForeignKey(User, on_delete=models.CASCADE)
     datetime = models.DateTimeField(default=timezone.now)
     chat_messeage = models.TextField(max_length=1000)
-
-
-
-
-
-
 

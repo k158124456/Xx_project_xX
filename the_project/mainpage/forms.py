@@ -11,3 +11,9 @@ class CreateProjectForm(forms.Form):
 
 class CreateGroupForm(forms.Form):
     group_name = forms.CharField(max_length=20, label='group name', widget=forms.TextInput(attrs={'class':'form-controll'}))
+
+class NewProjectName(forms.Form):
+    new_project_name = forms.CharField(max_length=20, label='new project name', widget=forms.TextInput(attrs={'class':'form-controll'}))
+
+class NewDisplayName(forms.Form):
+    new_display_name = forms.CharField(max_length=20, label='new display name', widget=forms.TextInput(attrs={'class':'form-controll'}))
