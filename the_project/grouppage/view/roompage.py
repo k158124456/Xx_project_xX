@@ -34,6 +34,11 @@ class RoomPage(TemplateView):
 
         d_r=ProjectMember.objects.filter(projectlist=project).filter(userlist=request.user)
 
+        if 'status' in request.GET:
+            st=request.GET['status']
+            record_status=Status.objects.get(group_id=Group.objects.get(uuid=groupID),userlist=request.user)
+            record_status.status=Status_detail.objects.get(projectlist=project,detail=st).status_id
+            record_status.save()
 
         self.params["projectmembers"] = ProjectMember.objects.filter(projectlist=project)
         self.params["projectid"] = projectID
@@ -43,6 +48,12 @@ class RoomPage(TemplateView):
         self.params["group"] = group
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
+
+        
+
+
+
+
 
         
 

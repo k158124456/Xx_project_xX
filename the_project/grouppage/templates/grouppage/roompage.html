@@ -7,7 +7,6 @@
     </head>
     <body>
     <h1>{{groupname}}です</h1>
-    <h2>活動中</h2>
 
     ディスプレイネーム:{{displayname_role.displayname}}<br>
     ロール:{{displayname_role.role}}<br><br>
@@ -37,7 +36,7 @@
 
     <br>ステータス更新<br>
     {%for status_detail in status_details %}
-        <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}">{{status_detail.detail}}</a><br>
+        <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}?status={{status_detail.detail}}">{{status_detail.detail}}</a><br>
     {% endfor %}
 
     
