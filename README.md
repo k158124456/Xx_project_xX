@@ -1,15 +1,20 @@
 # Xx_project_xX
 ## 研究室の在室状況を確認するwebアプリ
 
-とりあえず個人用のフォルダを作り、共同作業にだんだん慣れていくことを目標とする
-
-VS codeの場合ctrl+shift+Vでプレビュー別タブ表示
-ctrl+k,Vでサイドバイサイドに表示
+共同作業にだんだん慣れていくことを第一目標とする
 
 
 ```
 Xx_project_xX
 │
+├ kgoa
 ├ ryusei
-└ yarita
+└ the_project
+    ├ grouppage
+    ├ mainpage
+    ├ sign_in
+    ├ sign_up
+    ├ the_project
+    └ toppage
+
 ```

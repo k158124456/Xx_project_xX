@@ -2,9 +2,10 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
-app_name = "grouppage"
+app_name = "roompage"
 
 urlpatterns = [
     # ここに再接続された地点でmainpage/<projectname>/grouppage/はくっついてる
-    path("", views.RoomPage.as_view(), name="grouppage")
+    path("", views.RoomPage.as_view(), name="roompage"),
+    path("status_new/",views.Status_new.as_view(),name="status_new"),
 ]
