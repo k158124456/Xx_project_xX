@@ -116,7 +116,7 @@ class ProjectSettings_member_change(TemplateView):
         if role == 0:
             pm.role = 1
         pm.save()
-            
+
         return redirect("/mainpage/project_"+project_id+"/setting/member")
 
 class ProjectSettings_delete(TemplateView):
