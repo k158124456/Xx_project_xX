@@ -11,7 +11,7 @@
 
 <!--グループはgroupnameにクエリパラメータを渡してページ遷移-->
 {%for group in groups%}
-<a href="/mainpage/project_{{project_uuid}}/grouppage?groupname={{group.uuid}}">{{group.group_name}}</a><br>
+<a href="/mainpage/project_{{project_uuid}}/grouppage_{{group.uuid}}">{{group.group_name}}</a><br>
 {% endfor %}
 {% if admin_or_not == 1 %}
 <a href="/mainpage/project_{{project_uuid}}/invite?usr={{userdata}}">{{selected_project.projectlist.project_name}}にメンバーを招待する</a>

@@ -23,5 +23,6 @@ urlpatterns = [
     path('createproject/', views.CreateProject.as_view(), name='create_project'),
     #path('/notice/delete', views.Delete.as_view(), name='delete'),
     # グループページに飛ばすために、ここでgrouppageをインクルードしている
-    path('project_<project_id>/grouppage', include('grouppage.urls'))
+    path('project_<project_id>/grouppage_<group_id>/', include('grouppage.urls')),
+    
 ]

@@ -24,10 +24,28 @@
                     <td>{{projectmember.displayname}}</td>
                 {% endif %}
             {% endfor %}
-            <td>{{status.status}}</td>
+            
+            {% for status_detail in status_details %}
+                {% if status.status == status_detail.status_id %}
+                    <td>{{status_detail.detail}}</td>
+                {% endif %}
+            {% endfor %}
             </tr>
         {% endfor %}
     </table>
+
+
+    <br>ステータス更新<br>
+    {%for status_detail in status_details %}
+        <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}">{{status_detail.detail}}</a><br>
+    {% endfor %}
+
+    
+    <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/status_new">新規ステータス定義</a><br>
+
+
+    <br><br>
+
 
 
     <a href="">グループ設定</a>
@@ -55,7 +73,7 @@
     {% endfor %}
     </table>
     <p>チャットは1000字まで</p>
-    <form action="/mainpage/project_{{projectid}}/grouppage?groupname={{group.uuid}}" method="post">
+    <form action="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/" method="post">
         {% csrf_token %}
     {{form}}
     <input type="submit" value="送信">
