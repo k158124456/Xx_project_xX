@@ -6,13 +6,19 @@
     <tr>
         <th>ユーザー名</th>
         <th>役職</th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>{{me.displayname}}</td>
+        <td>{%if me.role == 1%}管理者{%else%}メンバー{%endif%}</td>
+        <td></td>
     </tr>
     {%for user in userlist%}
     <tr>
         <td>{{user.displayname}}</td>
         <td>{%if user.role == 1%}管理者{%else%}メンバー{%endif%}</td>
-        
-        
+        <td><a href="member/change?username={{user.userlist}}">変更</a></td>
+
     </tr>
     {% endfor %}
 </table>

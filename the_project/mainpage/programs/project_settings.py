@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from ..forms import NewDisplayName, NewProjectName
 from django.urls import reverse
 from urllib.parse import urlencode
+from copy import copy
 
 class ProjectSettings(TemplateView):
     def __init__(self):
@@ -100,6 +101,23 @@ class ProjectSettings_member(TemplateView):
         self.params["me"] = own
         self.params["userlist"] = members
         return render(request, 'mainpage/project_settings_member.html', self.params)
+
+class ProjectSettings_member_change(TemplateView):
+    def __init__(self):
+        self.params = {
+
+        }
+    def get(self, request, project_id):
+        the_user = request.GET["username"]
+        pm = ProjectMember.objects.filter(projectlist__uuid=project_id).get(userlist__username=the_user)
+        role = copy(pm.role)
+        if role == 1:
+            pm.role = 0
+        if role == 0:
+            pm.role = 1
+        pm.save()
+
+        return redirect("/mainpage/project_"+project_id+"/setting/member")
 
 class ProjectSettings_delete(TemplateView):
     def __init__(self):

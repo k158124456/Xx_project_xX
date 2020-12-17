@@ -14,6 +14,7 @@ urlpatterns = [
     path('project_<project_id>/setting/namesetting', views.ProjectSettings_nemesetting.as_view(), name='project_settings_namesetting'),
     path('project_<project_id>/setting/display_name', views.ProjectSettings_display_name.as_view(), name='project_settings_display_name'),
     path('project_<project_id>/setting/member', views.ProjectSettings_member.as_view(), name='project_settings_member'),
+    path('project_<project_id>/setting/member/change', views.ProjectSettings_member_change.as_view(), name='project_settings_member_change'),
     path('project_<project_id>/setting/delete', views.ProjectSettings_delete.as_view(), name='project_settings_delete'),
     path('project_<project_id>/setting/delete/verification', views.ProjectSettings_delete_verification.as_view(), name='project_settings_delete_verification'),
     path('project_<project_id>/setting/delete/complete', views.ProjectSettings_delete_complete.as_view(), name='project_settings_delete_complete'),

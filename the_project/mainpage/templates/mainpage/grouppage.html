@@ -17,4 +17,11 @@
 <a href="/mainpage/project_{{project_uuid}}/invite?usr={{userdata}}">{{selected_project.projectlist.project_name}}にメンバーを招待する</a>
 {% endif %}
 
+{% for member in member_list %}
+{{member.userlist}}
+{{member.status}}
+{% endfor %}
+{% for a in debug %}
+{{a.a}}
+{% endfor %}
 {% endblock %}
