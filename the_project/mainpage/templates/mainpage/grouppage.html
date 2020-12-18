@@ -10,6 +10,7 @@
 {% endif %} 
 
 <!--グループはgroupnameにクエリパラメータを渡してページ遷移-->
+<!--プロジェクトがクリックされると表示されるプロジェクトに入っているグループのリスト-->
 {%for group in groups%}
 <a href="/mainpage/project_{{project_uuid}}/grouppage_{{group.uuid}}">{{group.group_name}}</a><br>
 {% endfor %}
@@ -17,11 +18,21 @@
 <a href="/mainpage/project_{{project_uuid}}/invite?usr={{userdata}}">{{selected_project.projectlist.project_name}}にメンバーを招待する</a>
 {% endif %}
 
-{% for member in member_list %}
-{{member.userlist}}
-{{member.status}}
-{% endfor %}
-{% for a in debug %}
-{{a.a}}
-{% endfor %}
+<!--グループメンバー(オフライン以外)の人間がどこにいるのかを一覧できるテーブル-->
+<table>
+    <tr>
+        <th>名前</th>
+        <th>ステータス</th>
+    </tr>
+    {% for a in debug %}
+    <tr>       
+        <td>{{a.name}}</td>
+        <td>{{a.status}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+
 {% endblock %}

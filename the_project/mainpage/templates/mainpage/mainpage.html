@@ -20,7 +20,7 @@
         <!--↓group一覧はmainpageを後から挿入する形にする-->
         {% block content %}
         {% endblock %}
-        <p>{{debug}}</p>
+
     {% else %}
     <p><a  href="{% url 'sign_in:sign_in' %}">Sign in</a>が必要なページです</p>
     {% endif %}
