@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'websocket_app',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'test_channels.wsgi.application'
+WSGI_APPLICATION = 'websocket_proj.routing.application'
 
 
 # Database
