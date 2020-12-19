@@ -35,6 +35,11 @@ class RoomPage(TemplateView):
         d_r=ProjectMember.objects.filter(projectlist=project).filter(userlist=request.user)
 
         if 'status' in request.GET:
+            sta_list=Status.objects.filter(userlist=request.user)
+            for sta in sta_list:
+                sta.status=0
+                sta.save()
+
             st=request.GET['status']
             record_status=Status.objects.get(group_id=Group.objects.get(uuid=groupID),userlist=request.user)
             record_status.status=Status_detail.objects.get(group_id__uuid=groupID,detail=st).status_id
