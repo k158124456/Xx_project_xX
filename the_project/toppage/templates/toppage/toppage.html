@@ -1,24 +1,46 @@
 {% load static %}
 <! dtype html >
 <html lang="ja">
+
 <head>
         <!--↓でtoppage/static/toppage/css/style.cssを読み込むことができる-->
         <link rel="stylesheet" type="text/css" href="{% static 'toppage/css/style.css' %}">
 		<!-- Bootstrap -->
 		<link href="{% static 'toppage/css/bootstrap-4.4.1.css' %}" rel="stylesheet" type="text/css">
 		
+		
+		<!-- ローカルでのテストリンク　--><!--
+		<link href="css/bootstrap-4.4.1.css" rel="stylesheet" type="text/css">
+		<link href="css/style.css" rel="stylesheet" type="text/css">-->
+		
+		
 <meta charset="utf-8">
 		<title>{{title}}</title>
 </head>
 	
     <body>
-	<h1>toppage</h1>
+	<h1 hidden>toppage</h1>
 		
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-2 side_ber">
-			<a href="{% url 'sign_up:sign_up_page' %}">Sign up</a>
-    		<a href="{% url 'sign_in:sign_in' %}">Sign in</a>
+			<!-- 左サイドバー　-->
+		  <div class="col-md-2 side_ber">
+				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_in:sign_in' %}'">
+					Sign in</button>
+				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">
+					Sign up</button>
+				<button type="button" class="btn btn-success side_ber_btn " onclick="location.href='#'">
+					about us</button>
+				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='#'">
+					help</button>
+	  	    
+          </div>
+			
+			<!-- メインコンテンツ　-->
+			<div class="col-md-10 maincontent">
+				<div class="title">
+					<h1>yawya</h1>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -36,6 +58,14 @@
     <!-- Include all compiled plugins (below), or include individual files as needed --> 
     <script src="{% static 'toppage/js/popper.min.js' %}"></script>
     <script src="{% static 'toppage/js/bootstrap-4.4.1.js' %}"></script>
+		
+		
+	<!-- ローカルでのテストリンク　--><!--	
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="js/popper.min.js}"></script>
+    <script src="js/bootstrap-4.4.1.js}"></script>-->
+	
+		
 </body>
 </html>
 
