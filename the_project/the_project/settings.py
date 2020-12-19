@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'sign_up',
     'toppage',
     'mainpage',
-    'grouppage'
+    'grouppage',
+    'django_boost',
 ]
 
 MIDDLEWARE = [

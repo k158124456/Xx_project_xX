@@ -29,7 +29,7 @@ class Status_new(TemplateView):
         project = Project.objects.get(uuid=projectID)
         chat = Chat.objects.filter(group_id__uuid=groupID)
         groupname = group.group_name
-        status_detail = Status_detail.objects.filter(projectlist__uuid=projectID)
+        status_detail = Status_detail.objects.filter(group_id__uuid=groupID)
 
         d_r=ProjectMember.objects.filter(projectlist=project).filter(userlist=request.user)
 
@@ -58,7 +58,7 @@ class Status_new(TemplateView):
         status = Status.objects.filter(group_id__uuid=groupID)
         project = Project.objects.get(uuid=projectID)
         chat = Chat.objects.filter(group_id__uuid=groupID)
-        status_detail = Status_detail.objects.filter(projectlist__uuid=projectID)
+        status_detail = Status_detail.objects.filter(group_id__uuid=groupID)
         
 
         
@@ -66,7 +66,7 @@ class Status_new(TemplateView):
         #groupID = request.GET["groupname"]
         projectID = project_id
         record_status = Status_detail(
-            projectlist=project,
+            group_id=group,
             status_id=status_detail.count(),
             detail=status_new,
         )

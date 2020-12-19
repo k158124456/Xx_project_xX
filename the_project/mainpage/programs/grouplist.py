@@ -36,22 +36,27 @@ class GroupList(TemplateView):
         group_list = G.objects.filter(project_id__uuid=project_id)
         ##どうやってここからステータスのリストを持ってこようか
         ##リストに足してあげるといけるのかよ。
-        status_list = []
+        status_lists = []
+        detail_lists=[]
         for group in group_list:
-            status_list += Status.objects.filter(group_id=group.uuid)
+            status_lists.append(Status.objects.filter(group_id=group.uuid))
+            detail_lists.append(Status_detail.objects.filter(group_id=group.uuid))
         #status_detailがプロジェクト単位になってるのに疑問
-        details = Status_detail.objects.filter(projectlist=project_id)
-
-        return_status = []
+    
+        return_status_list = []
 
         name = ProjectMember.objects.filter(projectlist__uuid=project_id)
 
         #status：名前とステータス番号の列
-        for status in status_list:
-            for detail in details:
+        for status_list,detail_list in zip(status_lists,detail_lists):
+            g_status_list=[]
+            for status in status_list:
                 if status.status != 0:
-                    if status.status == detail.status_id:
-                        return_status.append({"name":name.get(userlist=status.userlist).displayname, "status":detail.detail})
+                    for detail in detail_list:
+                        if status.status == detail.status_id:
+                            g_status_list.append({"name":name.get(userlist=status.userlist).displayname, "status":detail.detail})
+            return_status_list.append(g_status_list)
+
                 
 
         
@@ -70,7 +75,7 @@ class GroupList(TemplateView):
             "selected_project" : selected_project,
             "project_uuid" : project_id,
             "admin_or_not" : admin_or_not,
-            "member_list" : status_list,
-            "debug" : return_status,
+            #"member_list" : status_list,
+            "status_list" : return_status_list,
         }
         return render(request, 'mainpage/grouppage.html', params)

@@ -1,5 +1,5 @@
 {% extends 'mainpage/mainpage.html' %}
-
+{% load boost %}
 {% block content %}
 <br>
 <a href="/mainpage/project_{{project_uuid}}/setting">プロジェクト設定</a>
@@ -11,14 +11,28 @@
 
 <!--グループはgroupnameにクエリパラメータを渡してページ遷移-->
 <!--プロジェクトがクリックされると表示されるプロジェクトに入っているグループのリスト-->
-{%for group in groups%}
+{% for group , statuss in groups|zip:status_list %}
 <a href="/mainpage/project_{{project_uuid}}/grouppage_{{group.uuid}}">{{group.group_name}}</a><br>
+<table>
+    <tr>
+        <th>名前</th>
+        <th>ステータス</th>
+    </tr>
+    {% for status in statuss %}
+    <tr>
+        <td>{{status.name}}</td>
+        <td>{{status.status}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
 {% endfor %}
+<br>
 {% if admin_or_not == 1 %}
 <a href="/mainpage/project_{{project_uuid}}/invite?usr={{userdata}}">{{selected_project.projectlist.project_name}}にメンバーを招待する</a>
 {% endif %}
 
-<!--グループメンバー(オフライン以外)の人間がどこにいるのかを一覧できるテーブル-->
+<!--グループメンバー(オフライン以外)の人間がどこにいるのかを一覧できるテーブル
 <table>
     <tr>
         <th>名前</th>
@@ -31,6 +45,7 @@
     </tr>
     {% endfor %}
 </table>
+-->
 
 
 

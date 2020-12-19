@@ -40,18 +40,7 @@ class CreateProject(TemplateView):
             pm.save()
             self.params["message"] = project_name + "を作成しました"
             
-            sd = Status_detail(
-                projectlist=Project.objects.get(uuid=proj.uuid),
-                status_id = 0,
-                detail = "オフライン",
-            )
-            sd.save()
-            sd = Status_detail(
-                projectlist=Project.objects.get(uuid=proj.uuid),
-                status_id = 1,
-                detail = "オンライン",
-            )
-            sd.save()
+
             
             return render(request, "mainpage/createptoject.html", self.params)
         else:

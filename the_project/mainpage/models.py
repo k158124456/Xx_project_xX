@@ -25,7 +25,7 @@ class ProjectMember(models.Model):
     role=models.IntegerField(default='SOME CATEGORY')
 
 class Status_detail(models.Model):
-    projectlist = models.ForeignKey(Project, on_delete=models.CASCADE)
+    group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
     status_id = models.IntegerField(default='SOME CATEGORY')
     detail = models.CharField(max_length=10,default='')
 
