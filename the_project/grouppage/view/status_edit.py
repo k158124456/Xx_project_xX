@@ -4,24 +4,23 @@ from django.contrib.auth.decorators import login_required
 from mainpage.models import Project, Group, ProjectMember, Status, Invite,Chat,Status_detail
 import pandas as pd
 from django.http import HttpResponse
-from ..forms import ChatForm
+from ..forms import *
 from django.utils import timezone
 from django.contrib.auth.models import User
 
 
-class RoomPage(TemplateView):
+class Status_new(TemplateView):
     def __init__(self):
 
         self.params = {
-            "form" : ChatForm()["chat_messeage"],
+            "form" : StatusForm()["detail"],
             "userdata" : "",
             "project" : "",
         }
     
     def get(self,request,project_id,group_id):
         #groupid と　projectidを取得
-        #groupID = request.GET["groupname"]
-        groupID = group_id
+        groupID = group_id#request.GET["groupname"]
         projectID = project_id
         
         #groupインスタンスを取得
@@ -35,16 +34,13 @@ class RoomPage(TemplateView):
 
         d_r=ProjectMember.objects.filter(projectlist=project).filter(userlist=request.user)
 
-        if 'status' in request.GET:
-            sta_list=Status.objects.filter(userlist=request.user)
-            for sta in sta_list:
-                sta.status=0
-                sta.save()
+        if "target" in request.GET:
+            target=request.GET['target']
+            mode=request.GET['mode']
+            detail=status_detail.get(status_id=target)
+            if mode=="delete":
+                detail.delete()
 
-            st=request.GET['status']
-            record_status=Status.objects.get(group_id=Group.objects.get(uuid=groupID),userlist=request.user)
-            record_status.status=Status_detail.objects.get(group_id__uuid=groupID,detail=st).status_id
-            record_status.save()
 
         self.params["projectmembers"] = ProjectMember.objects.filter(projectlist=project)
         self.params["projectid"] = projectID
@@ -55,22 +51,15 @@ class RoomPage(TemplateView):
         self.params["group"] = group
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
-        self.params["title"]=projectname+"/"+groupname
+        self.params["title"]=projectname+"/"+groupname+":setting_status_edit"
 
         
 
-
-
-
-
-        
-
-        return render(request, 'grouppage/roompage.html', self.params)
+        return render(request, 'grouppage/status_edit.html', self.params)
     
     def post(self,request,project_id,group_id):
 
-        #groupID = request.GET["groupname"]
-        groupID = group_id
+        groupID = group_id#request.GET["groupname"]
         
         #groups = Group.objects.filter(project_id__uuid=project_id)
         projectID = project_id
@@ -81,18 +70,18 @@ class RoomPage(TemplateView):
         chat = Chat.objects.filter(group_id__uuid=groupID)
         status_detail = Status_detail.objects.filter(group_id__uuid=groupID)
         projectname=project.project_name
+        
 
         
-        chat_messeage = request.POST.get("chat_messeage")
+        status_new = request.POST.get("detail")
         #groupID = request.GET["groupname"]
         projectID = project_id
-        record_chat = Chat(
-            group_id = Group.objects.get(uuid=groupID),
-            userlist = request.user,
-            datetime = timezone.datetime.now(),
-            chat_messeage = chat_messeage
+        record_status = Status_detail(
+            group_id=group,
+            status_id=status_detail.count(),
+            detail=status_new,
         )
-        record_chat.save()
+        record_status.save()
 
         chat = Chat.objects.filter(group_id__uuid=groupID)
 
@@ -108,10 +97,10 @@ class RoomPage(TemplateView):
         self.params["chats"] = chat
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
-        self.params["title"]=projectname+"/"+groupname
+        self.params["title"]=projectname+"/"+groupname+":setting_status_edit"
 
 
-        return render(request, 'grouppage/roompage.html', self.params)
+        return render(request, 'grouppage/status_edit.html', self.params)
 
 
 
