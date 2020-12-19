@@ -1,17 +1,42 @@
 {% load static %}
 <! dtype html >
 <html lang="ja">
-    <head>
+<head>
         <!--↓でtoppage/static/toppage/css/style.cssを読み込むことができる-->
         <link rel="stylesheet" type="text/css" href="{% static 'toppage/css/style.css' %}">
-        <meta charset="utf-8">
-        <title>{{title}}</title>
-    </head>
+		<!-- Bootstrap -->
+		<link href="{% static 'toppage/css/bootstrap-4.4.1.css' %}" rel="stylesheet" type="text/css">
+		
+<meta charset="utf-8">
+		<title>{{title}}</title>
+</head>
+	
     <body>
-    <h1>toppage</h1>
-    <a href="{% url 'sign_up:sign_up_page' %}">Sign up</a>
-    <a href="{% url 'sign_in:sign_in' %}">Sign in</a>
-    </body>
+	<h1>toppage</h1>
+		
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-2 side_ber">
+			<a href="{% url 'sign_up:sign_up_page' %}">Sign up</a>
+    		<a href="{% url 'sign_in:sign_in' %}">Sign in</a>
+			</div>
+		</div>
+	</div>
+
+    
+		
+		
+		
+		
+		
+		
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'toppage/js/jquery-3.4.1.min.js' %}"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="{% static 'toppage/js/popper.min.js' %}"></script>
+    <script src="{% static 'toppage/js/bootstrap-4.4.1.js' %}"></script>
+</body>
 </html>
 
 
