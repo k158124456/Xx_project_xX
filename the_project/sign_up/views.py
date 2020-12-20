@@ -9,6 +9,11 @@ from django.contrib.auth.models import User
 unavailable_cha={'id':[" ","\\","<",">"],
                 'mail':[" ","\\","<",">"],
                 'password':[" ","\\","<",">"],}
+useable_cha = [
+    'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+    'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+    '1','2','3','4','5','6','7','8','9','0','_'
+]
 
 class SignUp(TemplateView):
     def __init__(self):
@@ -37,6 +42,13 @@ class SignUp(TemplateView):
                 return True
         else:return False
 
+    #使用可能文字判定id
+    def available_cha_id(self,id):
+        for i in id:
+            if i in useable_cha:
+                return False
+        else:return True
+
     #使用禁止文字判定mail
     def unavailable_cha_mail(self,mail):
         for i in mail:
@@ -50,6 +62,7 @@ class SignUp(TemplateView):
             if i in unavailable_cha['password']:
                 return True
         else:return False
+
 
     def need_chr_mail(self, mail):
         #self.params["debug"] = not ("@" in str(mail))
@@ -72,6 +85,7 @@ class SignUp(TemplateView):
         already_recorded_id = self.isin_id(self.user_id)
         too_short_pass = self.inough_lengs(self.pswd)
         not_use_id = self.unavailable_cha_id(self.user_id)
+        not_use_id = self.available_cha_id(self.user_id)
         not_use_mail = self.unavailable_cha_mail(self.mail)
         not_use_pass = self.unavailable_cha_pass(self.pswd)
         at_isin = self.need_chr_mail(self.mail)
