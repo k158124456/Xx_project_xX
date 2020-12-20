@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 # Create your views here.
 from django.contrib.auth.decorators import login_required
-from ..models import Project, Group, ProjectMember, Status, Invite
+from ..models import Project, Group, ProjectMember, Status, Invite,Status_detail
 from django.contrib.auth.models import User
 import pandas as pd
 from django.http import HttpResponse
@@ -45,6 +45,19 @@ class CreateGroup(TemplateView):
                     status=0
                 )
                 record_status.save()
+            
+            sd = Status_detail(
+                group_id=Group.objects.get(uuid=group.uuid),
+                status_id = 0,
+                detail = "オフライン",
+            )
+            sd.save()
+            sd = Status_detail(
+                group_id=Group.objects.get(uuid=group.uuid),
+                status_id = 1,
+                detail = "オンライン",
+            )
+            sd.save()
 
             return render(request, 'mainpage/creategroup.html', self.params)
 

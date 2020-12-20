@@ -9,4 +9,5 @@ admin.site.register(Invite)
 admin.site.register(Chat)
 admin.site.register(Status_detail)
 
+
 # Register your models here.

@@ -1,0 +1,26 @@
+{% load static %}
+<! dtype html >
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+        <meta http-equiv="refresh" content="60; URL=">
+    </head>
+    <body>
+    <h1>{{projectname}}/{{groupname}}</h1>
+    <h2>設定</h2>
+
+    ディスプレイネーム:{{displayname_role.displayname}}<br>
+    役職:{{displayname_role.role}}<br><br>
+    
+    <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/status_edit">ステータス編集</a><br><br>
+
+
+    <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}">グループページに戻る</a>
+    <a href="/mainpage/project_{{projectid}}">プロジェクトページに戻る</a>
+
+
+    </body>
+</html>
+
+
