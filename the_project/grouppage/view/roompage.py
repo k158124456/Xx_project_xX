@@ -95,13 +95,6 @@ class RoomPage(TemplateView):
         self.params["status_list"]=status_list
         self.params["contains"] = return_list
 
-        
-
-
-
-
-
-        
 
         return render(request, 'grouppage/roompage.html', self.params)
     
