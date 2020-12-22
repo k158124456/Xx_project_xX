@@ -32,8 +32,9 @@ class RoomPage(TemplateView):
         groupname = group.group_name
         status_detail = Status_detail.objects.filter(group_id__uuid=groupID)
         projectname=project.project_name
-
-        d_r=ProjectMember.objects.filter(projectlist=project).filter(userlist=request.user)
+        projectmember = ProjectMember.objects.filter(projectlist=project)
+        d_r=projectmember.filter(userlist=request.user)
+        
 
         if 'status' in request.GET:
             sta_list=Status.objects.filter(userlist=request.user)
@@ -58,6 +59,29 @@ class RoomPage(TemplateView):
         status_list=list(reversed(status_list))#逆順のリスト
         #------
 
+        #{権限持っているか, 名前, ステータス, 書き置きコメント}の辞書を作る
+        return_list = []
+        for statuses in status_list:
+            for status in statuses:
+                status_dict = {}
+                # プロジェクトでのディスプレーネームを探す
+                for member in projectmember:
+                    if member.userlist == status.userlist:
+                        status_dict["username"] = member.displayname
+                        status_dict["role"] = member.role
+                        
+                        for chat_ in chat:
+                            if chat_.userlist == status.userlist:
+                                status_dict["message"] = chat_.chat_messeage
+                        
+
+                for status_detail_ in status_detail:
+                    if status.status == status_detail_.status_id:
+                        status_dict["status"] = status_detail_.detail
+
+                return_list.append(status_dict)
+        
+
         self.params["projectmembers"] = ProjectMember.objects.filter(projectlist=project)
         self.params["projectid"] = projectID
         self.params["statuses"] = status
@@ -69,6 +93,7 @@ class RoomPage(TemplateView):
         self.params["displayname_role"] = d_r[0]
         self.params["title"]=projectname+"/"+groupname
         self.params["status_list"]=status_list
+        self.params["contains"] = return_list
 
         
 
@@ -94,6 +119,8 @@ class RoomPage(TemplateView):
         chat = Chat.objects.filter(group_id__uuid=groupID)
         status_detail = Status_detail.objects.filter(group_id__uuid=groupID)
         projectname=project.project_name
+        projectmember = ProjectMember.objects.filter(projectlist=project)
+        d_r=projectmember.filter(userlist=request.user)
 
         #status状態順→名前順？にソートする
         count=0
@@ -106,6 +133,7 @@ class RoomPage(TemplateView):
             else:break
         status_list=list(reversed(status_list))#逆順のリスト
         #------
+
 
         chat_messeage = request.POST.get("chat_messeage")
         #groupID = request.GET["groupname"]
@@ -120,7 +148,28 @@ class RoomPage(TemplateView):
 
         chat = Chat.objects.filter(group_id__uuid=groupID)
 
-        d_r=ProjectMember.objects.filter(projectlist=project).filter(userlist=request.user)
+        #{権限持っているか, 名前, ステータス, 書き置きコメント}の辞書を作る
+        return_list = []
+        for statuses in status_list:
+            for status in statuses:
+                status_dict = {}
+                # プロジェクトでのディスプレーネームを探す
+                for member in projectmember:
+                    if member.userlist == status.userlist:
+                        status_dict["username"] = member.displayname
+                        status_dict["role"] = member.role
+                        
+                        for chat_ in chat:
+                            if chat_.userlist == status.userlist:
+                                status_dict["message"] = chat_.chat_messeage
+                        
+
+                for status_detail_ in status_detail:
+                    if status.status == status_detail_.status_id:
+                        status_dict["status"] = status_detail_.detail
+
+                return_list.append(status_dict)
+        
 
         groupname = group.group_name
         self.params["projectmembers"] = ProjectMember.objects.filter(projectlist=project)
@@ -134,6 +183,7 @@ class RoomPage(TemplateView):
         self.params["displayname_role"] = d_r[0]
         self.params["title"]=projectname+"/"+groupname
         self.params["status_list"]=status_list
+        self.params["contains"] = return_list
 
 
         return render(request, 'grouppage/roompage.html', self.params)
