@@ -11,7 +11,7 @@
 
     ディスプレイネーム:{{displayname_role.displayname}}<br>
     役職:{% if displayname_role.role == 1 %}管理者{%else%}メンバー{%endif%}<br><br>
-    
+    <!--
     <table>
         <tr>
             <th>ユーザー名</th>
@@ -35,7 +35,28 @@
             {% endfor %}
         {% endfor %}
     </table>
+-->
+    <table>
+        <tr>
+            <th>役職</th>
+            <th>ユーザー名</th>
+            <th>ステータス</th>
+            <th>書き置き</th>
+        </tr>
+        {% for contain in contains %}
+        <tr>
+            {% if contain.role == 1 %}
+            <td>管理者</td>
+            {% else %}
+            <td>一般ユーザー</td>
+            {% endif %}
+            <td>{{contain.username}}</td>
+            <td>{{contain.status}}</td>
+            <td>{{contain.message}}</td>
+        </tr>
+        {% endfor %}
 
+    </table>
 
     <br>ステータス更新<br>
     {%for status_detail in status_details %}
@@ -50,7 +71,7 @@
     <a href="/mainpage/project_{{projectid}}">プロジェクトページに戻る</a>
 
     <br><br><br>
-
+<!--
     <h3>チャット</h3>
     <table>
     <tr>
@@ -70,13 +91,17 @@
         </tr>
     {% endfor %}
     </table>
-    <p>チャットは1000字まで</p>
+-->
+    <p>書き置きは1000字まで</p>
     <form action="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/" method="post">
         {% csrf_token %}
     {{form}}
     <input type="submit" value="送信">
 
-
+    
+    {% for debug in debug1 %}
+    {{debug}}
+    {% endfor %}
     </body>
 </html>
 
