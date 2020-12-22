@@ -45,7 +45,11 @@
         </tr>
         {% for contain in contains %}
         <tr>
-            <td>{{contain.role}}</td>
+            {% if contain.role == 1 %}
+            <td>管理者</td>
+            {% else %}
+            <td>一般ユーザー</td>
+            {% endif %}
             <td>{{contain.username}}</td>
             <td>{{contain.status}}</td>
             <td>{{contain.message}}</td>
@@ -88,7 +92,7 @@
     {% endfor %}
     </table>
 -->
-    <p>チャットは1000字まで</p>
+    <p>書き置きは1000字まで</p>
     <form action="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/" method="post">
         {% csrf_token %}
     {{form}}
