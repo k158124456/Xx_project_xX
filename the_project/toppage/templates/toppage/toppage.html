@@ -26,10 +26,15 @@
 		<div class="row">
 			<!-- 左サイドバー　-->
 		  <div class="col-md-2 side_ber">
+			{% if user.is_authenticated %}
+				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'mainpage:mainpage' %}'">
+					メインページへ</button>
+			{% else %}
 				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_in:sign_in' %}'">
 					Sign in</button>
 				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">
 					Sign up</button>
+			{% endif %}
 				<button type="button" class="btn btn-success side_ber_btn " onclick="location.href='#'">
 					about us</button>
 				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='#'">
