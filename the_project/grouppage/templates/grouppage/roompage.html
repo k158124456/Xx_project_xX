@@ -10,7 +10,7 @@
     <h1>{{projectname}}/{{groupname}}</h1>
 
     ディスプレイネーム:{{displayname_role.displayname}}<br>
-    役職:{{displayname_role.role}}<br><br>
+    役職:{% if displayname_role.role == 1 %}管理者{%else%}メンバー{%endif%}<br><br>
     
     <table>
         <tr>
