@@ -17,20 +17,22 @@
             <th>ユーザー名</th>
             <th>ステータス</th>
         </tr>
-        {% for status in statuses %}
-            <tr>
-            {% for projectmember in projectmembers %}
-                {% if projectmember.userlist == status.userlist %}
-                    <td>{{projectmember.displayname}}</td>
-                {% endif %}
+        {% for statuss in status_list %}
+            {% for status in statuss %}
+                <tr>
+                {% for projectmember in projectmembers %}
+                    {% if projectmember.userlist == status.userlist %}
+                        <td>{{projectmember.displayname}}</td>
+                    {% endif %}
+                {% endfor %}
+                
+                {% for status_detail in status_details %}
+                    {% if status.status == status_detail.status_id %}
+                        <td>{{status_detail.detail}}</td>
+                    {% endif %}
+                {% endfor %}
+                </tr>
             {% endfor %}
-            
-            {% for status_detail in status_details %}
-                {% if status.status == status_detail.status_id %}
-                    <td>{{status_detail.detail}}</td>
-                {% endif %}
-            {% endfor %}
-            </tr>
         {% endfor %}
     </table>
 
@@ -39,10 +41,6 @@
     {%for status_detail in status_details %}
         <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}?status={{status_detail.detail}}">{{status_detail.detail}}</a><br>
     {% endfor %}
-
-    
-    <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/status_new">新規ステータス定義</a><br>
-
 
     <br><br>
 
