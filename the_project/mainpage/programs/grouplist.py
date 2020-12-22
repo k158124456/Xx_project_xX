@@ -48,16 +48,32 @@ class GroupList(TemplateView):
         name = ProjectMember.objects.filter(projectlist__uuid=project_id)
 
         #status：名前とステータス番号の列
-        for status_list,detail_list in zip(status_lists,detail_lists):
+        for status,detail_list in zip(status_lists,detail_lists):
             g_status_list=[]
-            for status in status_list:
-                if status.status != 0:
-                    for detail in detail_list:
-                        if status.status == detail.status_id:
-                            g_status_list.append({"name":name.get(userlist=status.userlist).displayname, "status":detail.detail})
+            #for status in status_list:
+            count=1
+            status_list_=[]
+            while True:
+                if detail_list.filter(status_id=count).exists():#status存在確認
+                    if status.filter(status=count).exists():
+                        status_list_.append(status.filter(status=count))
+                    count+=1
+                else:break
+            status_list_=list(reversed(status_list_))#逆順のリスト
+
+            for statuss_ in status_list_:
+                for status_ in statuss_:
+                    g_status_list.append({"name":name.get(userlist=status_.userlist).displayname, "status":detail_list.get(status_id=status_.status).detail})
             return_status_list.append(g_status_list)
 
-                
+
+            #    if status.status != 0:
+            #        for detail in detail_list:
+            #            if status.status == detail.status_id:
+            #                g_status_list.append({"name":name.get(userlist=status.userlist).displayname, "status":detail.detail})
+            #return_status_list.append(g_status_list)
+
+
 
         
             
