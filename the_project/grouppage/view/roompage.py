@@ -24,7 +24,7 @@ class RoomPage(TemplateView):
         groupID = group_id
         projectID = project_id
         
-        #groupインスタンスを取得
+        #インスタンス取得
         group = Group.objects.get(uuid=groupID)
         status = Status.objects.filter(group_id__uuid=groupID)
         project = Project.objects.get(uuid=projectID)
@@ -46,6 +46,18 @@ class RoomPage(TemplateView):
             record_status.status=Status_detail.objects.get(group_id__uuid=groupID,detail=st).status_id
             record_status.save()
 
+        #status状態順→名前順？にソートする
+        count=0
+        status_list=[]
+        while True:
+            if status_detail.filter(status_id=count).exists():#status存在確認
+                if status.filter(status=count).exists():
+                    status_list.append(status.filter(status=count))
+                count+=1
+            else:break
+        status_list=list(reversed(status_list))#逆順のリスト
+        #------
+
         self.params["projectmembers"] = ProjectMember.objects.filter(projectlist=project)
         self.params["projectid"] = projectID
         self.params["statuses"] = status
@@ -56,6 +68,7 @@ class RoomPage(TemplateView):
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
         self.params["title"]=projectname+"/"+groupname
+        self.params["status_list"]=status_list
 
         
 
@@ -82,7 +95,18 @@ class RoomPage(TemplateView):
         status_detail = Status_detail.objects.filter(group_id__uuid=groupID)
         projectname=project.project_name
 
-        
+        #status状態順→名前順？にソートする
+        count=0
+        status_list=[]
+        while True:
+            if status_detail.filter(status_id=count).exists():#status存在確認
+                if status.filter(status=count).exists():
+                    status_list.append(status.filter(status=count))
+                count+=1
+            else:break
+        status_list=list(reversed(status_list))#逆順のリスト
+        #------
+
         chat_messeage = request.POST.get("chat_messeage")
         #groupID = request.GET["groupname"]
         projectID = project_id
@@ -109,6 +133,7 @@ class RoomPage(TemplateView):
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
         self.params["title"]=projectname+"/"+groupname
+        self.params["status_list"]=status_list
 
 
         return render(request, 'grouppage/roompage.html', self.params)
