@@ -38,8 +38,14 @@ class Status_new(TemplateView):
             target=request.GET['target']
             mode=request.GET['mode']
             detail=status_detail.get(status_id=target)
+            statuss=status.filter(status=target)
+
             if mode=="delete":
                 detail.delete()
+                for status_ in statuss:
+                    status_.status=0
+                    status_.save()
+
 
 
         self.params["projectmembers"] = ProjectMember.objects.filter(projectlist=project)
