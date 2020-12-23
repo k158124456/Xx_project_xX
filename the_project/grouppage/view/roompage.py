@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
-from mainpage.models import Project, Group, ProjectMember, Status, Invite,Chat,Status_detail
+from mainpage.models import *
 import pandas as pd
 from django.http import HttpResponse
 from ..forms import ChatForm
@@ -48,20 +48,30 @@ class RoomPage(TemplateView):
             record_status.save()
 
         #status状態順→名前順？にソートする
-        count=0
-        status_list=[]
-        while True:
-            if status_detail.filter(status_id=count).exists():#status存在確認
-                if status.filter(status=count).exists():
-                    status_list.append(status.filter(status=count))
-                count+=1
-            else:break
-        status_list=list(reversed(status_list))#逆順のリスト
+        #count=0
+        #status_list=[]
+        #while True:
+        #    if status_detail.filter(status_id=count).exists():#status存在確認
+        #        if status.filter(status=count).exists():
+        #            status_list.append(status.filter(status=count))
+        #        count+=1
+        #    else:break
+        #status_list=list(reversed(status_list))#逆順のリスト
         #------
+
+        status_list=[]
+        for detail in status_detail:
+            if status.filter(status=detail.status_id).exists():
+                status_list.append(status.filter(status=detail.status_id))
+        status_list_=list(reversed(status_list))#逆順のリスト
+
+
+
+
 
         #{権限持っているか, 名前, ステータス, 書き置きコメント}の辞書を作る
         return_list = []
-        for statuses in status_list:
+        for statuses in status_list_:
             for status in statuses:
                 status_dict = {}
                 # プロジェクトでのディスプレーネームを探す
@@ -92,7 +102,7 @@ class RoomPage(TemplateView):
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
         self.params["title"]=projectname+"/"+groupname
-        self.params["status_list"]=status_list
+        self.params["status_list"]=status_list_
         self.params["contains"] = return_list
 
 
@@ -116,17 +126,21 @@ class RoomPage(TemplateView):
         d_r=projectmember.filter(userlist=request.user)
 
         #status状態順→名前順？にソートする
-        count=0
-        status_list=[]
-        while True:
-            if status_detail.filter(status_id=count).exists():#status存在確認
-                if status.filter(status=count).exists():
-                    status_list.append(status.filter(status=count))
-                count+=1
-            else:break
-        status_list=list(reversed(status_list))#逆順のリスト
+        #count=0
+        #status_list=[]
+        #while True:
+        #    if status_detail.filter(status_id=count).exists():#status存在確認
+        #        if status.filter(status=count).exists():
+        #            status_list.append(status.filter(status=count))
+        #        count+=1
+        #    else:break
+        #status_list=list(reversed(status_list))#逆順のリスト
         #------
-
+        status_list=[]
+        for detail in status_detail:
+            if status.filter(status=detail.status_id).exists():
+                status_list.append(status.filter(status=detail.status_id))
+        status_list_=list(reversed(status_list))#逆順のリスト
 
         chat_messeage = request.POST.get("chat_messeage")
         #groupID = request.GET["groupname"]
@@ -143,7 +157,7 @@ class RoomPage(TemplateView):
 
         #{権限持っているか, 名前, ステータス, 書き置きコメント}の辞書を作る
         return_list = []
-        for statuses in status_list:
+        for statuses in status_list_:
             for status in statuses:
                 status_dict = {}
                 # プロジェクトでのディスプレーネームを探す
@@ -175,7 +189,7 @@ class RoomPage(TemplateView):
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
         self.params["title"]=projectname+"/"+groupname
-        self.params["status_list"]=status_list
+        self.params["status_list"]=status_list_
         self.params["contains"] = return_list
 
 
