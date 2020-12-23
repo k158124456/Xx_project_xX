@@ -7,6 +7,7 @@ app_name = 'mainpage'
 
 urlpatterns = [
     path('', views.MainPage.as_view(), name='mainpage'),
+    path('leave/', views.Leave.as_view(), name='leave'),
     path('project_<project_id>/', views.GroupList.as_view(), name='grouplist'),
     path('project_<project_id>/invite', views.InviteMembers.as_view(), name='invite'),
     path('project_<project_id>/creategroup', views.CreateGroup.as_view(), name='create_group'),
