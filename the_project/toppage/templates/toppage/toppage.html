@@ -25,7 +25,8 @@
 	<div class="container-fluid">
 		<div class="row">
 			<!-- 左サイドバー　-->
-		  <div class="col-md-2 side_ber">
+		  <div class="col-md-2 side_ber" id="sticky-sidebar">
+			  <div class="sticky-top">
 			{% if user.is_authenticated %}
 				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'mainpage:mainpage' %}'">
 					メインページへ</button>
@@ -39,7 +40,7 @@
 					about us</button>
 				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='#'">
 					help</button>
-	  	    
+			  </div>
           </div>
 			
 			<!-- メインコンテンツ　-->
