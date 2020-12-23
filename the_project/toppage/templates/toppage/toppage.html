@@ -12,42 +12,50 @@
 		
 		<!-- ローカルでのテストリンク　--><!--
 		<link href="css/bootstrap-4.4.1.css" rel="stylesheet" type="text/css">
-		<link href="css/style.css" rel="stylesheet" type="text/css">
-		-->
+		<link href="css/style.css" rel="stylesheet" type="text/css">-->
+		
 		
 <meta charset="utf-8">
 		<title>{{title}}</title>
 </head>
 	
-<body>
-	<h1 hidden>toppage</h1>
+<body style="padding-bottom: 70px">
+<h1 hidden>toppage</h1>
 		
 	<div class="container-fluid">
 		<div class="row">
 			<!-- 左サイドバー　-->
-		  <div class="col-md-2 side_ber">
-			{% if user.is_authenticated %}
-				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'mainpage:mainpage' %}'">
-					メインページへ</button>
-			{% else %}
-				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_in:sign_in' %}'">
-					Sign in</button>
-				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">
-					Sign up</button>
-			{% endif %}
-				<button type="button" class="btn btn-success side_ber_btn " onclick="location.href='#'">
-					about us</button>
-				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='#'">
-					help</button>
-	  	    
-          </div>
-			
+		  <div class="col-md-2 side_ber" id="sticky-sidebar">
+		    <div class="sticky-top">
+				{% if user.is_authenticated %}
+					<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'mainpage:mainpage' %}'">
+						メインページへ</button>
+				{% else %}
+					<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_in:sign_in' %}'">
+						Sign in</button>
+					<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">
+						Sign up</button>
+				{% endif %}
+				  
+				  <button type="button" class="nav-item dropup help_btn"> 
+					  <a class="nav-link dropdown-toggle"  id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> help </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown1"> 
+							<a class="dropdown-item" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">about us</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">contact</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">privacy</a> 
+						</div>
+				  </button>
+		    </div>
+          </div><!-- 左サイドバー　-->
+
 			<!-- メインコンテンツ　-->
 			<div class="col-md-10 maincontent">
 				<div class="title">
 					<h1>yawya</h1>
 				</div>
-			</div>
+			</div><!-- メインコンテンツ　-->
 		</div>
 	</div>
 
