@@ -9,11 +9,11 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
-class Status_new(TemplateView):
+class Group_NameChange(TemplateView):
     def __init__(self):
 
         self.params = {
-            "form" : StatusForm()["detail"],
+            "form" : GroupNameForm()["name"],
             "userdata" : "",
             "project" : "",
         }
@@ -34,20 +34,6 @@ class Status_new(TemplateView):
 
         d_r=ProjectMember.objects.filter(projectlist=project).filter(userlist=request.user)
 
-        if "target" in request.GET:
-            target=request.GET['target']
-            mode=request.GET['mode']
-            detail=status_detail.get(status_id=target)
-            statuss=status.filter(status=target)
-
-            if mode=="delete":
-                detail.delete()
-                for status_ in statuss:
-                    status_.status=0
-                    status_.save()
-
-
-
         self.params["projectmembers"] = ProjectMember.objects.filter(projectlist=project)
         self.params["projectid"] = projectID
         self.params["statuses"] = status
@@ -61,7 +47,7 @@ class Status_new(TemplateView):
 
         
 
-        return render(request, 'grouppage/status_edit.html', self.params)
+        return render(request, 'grouppage/group_namechange.html', self.params)
     
     def post(self,request,project_id,group_id):
 
@@ -78,14 +64,13 @@ class Status_new(TemplateView):
         projectname=project.project_name
         
 
-        status_id_new=status_detail.order_by('-status_id')[0]
         
-        status_new = request.POST.get("detail")
+        group_name = request.POST.get("name")
         #groupID = request.GET["groupname"]
         projectID = project_id
         record_status = Status_detail(
             group_id=group,
-            status_id=1+status_id_new.status_id,
+            status_id=status_detail.count(),
             detail=status_new,
         )
         record_status.save()
@@ -93,7 +78,7 @@ class Status_new(TemplateView):
         chat = Chat.objects.filter(group_id__uuid=groupID)
 
         d_r=ProjectMember.objects.filter(projectlist=project).filter(userlist=request.user)
-
+        
         groupname = group.group_name
         self.params["projectmembers"] = ProjectMember.objects.filter(projectlist=project)
         self.params["projectid"] = projectID
