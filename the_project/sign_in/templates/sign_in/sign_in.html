@@ -4,28 +4,90 @@
     <head>
         <meta charset="utf-8">
         <title>{{title}}</title>
+		
+		<!--↓でtoppage/static/toppage/css/style.cssを読み込むことができる-->
+		<link rel="stylesheet" type="text/css" href="{% static 'toppage/css/style.css' %}">
+		
+		<!-- Bootstrap -->
+		<link href="{% static 'toppage/css/bootstrap-4.4.1.css' %}" rel="stylesheet" type="text/css">
+		
+		
+		<!-- ローカルでのテストリンク　--><!--
+		<link href="css/bootstrap-4.4.1.css" rel="stylesheet" type="text/css">
+		<link href="css/style.css" rel="stylesheet" type="text/css">-->
+		
+		
     </head>
     
 
     <body>
-    <h1>sign in</h1>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <!------form自体のクラスはform-controlで与えられてるよ------>
-        {% for field in form %}
-        <div class="form-group has-feedback">
-        {{ field }}
-        </div>
-        {% endfor %}
+		
+	<div class="container-fluid">
+		<div class="row">
+			
+			<!-- 左サイドバー　-->
+		  <div class="col-md-2 side_ber" id="sticky-sidebar">
+			  <div class="sticky-top">
+			{% if user.is_authenticated %}
+				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'mainpage:mainpage' %}'">
+					メインページへ</button>
+			{% else %}
+				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_in:sign_in' %}'">
+					Sign in</button>
+				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">
+					Sign up</button>
+			{% endif %}
+				<button type="button" class="btn btn-success side_ber_btn " onclick="location.href='#'">
+					about us</button>
+				<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='#'">
+					help</button>
+			  </div>
+          </div><!-- 左サイドバー　-->
+		
+			
+		<!-- メインコンテンツ　-->
+			<div class="col-md-10 maincontent">
+				<h1>sign in</h1>
+				<form action="" method="POST">
+					{% csrf_token %}
+					<!------form自体のクラスはform-controlで与えられてるよ------>
+					{% for field in form %}
+					<div class="form-group has-feedback">
+					{{ field }}
+					</div>
+					{% endfor %}
 
-        {% for error in form.non_field_errors %}
-        <div class="alert alert-danger" role="alert">
-            <p>{{ error }}</p>
-        </div>
-        {% endfor %}
-        <button type="submit" >Sign in</button>
-        
-    </form>
-    <a href="{%url 'toppage:toppage'%}">トップページに戻る</a>
-    </body>
+					{% for error in form.non_field_errors %}
+					<div class="alert alert-danger" role="alert">
+						<p>{{ error }}</p>
+					</div>
+					{% endfor %}
+					<button type="submit" >Sign in</button>
+
+				</form>
+				<a href="{%url 'toppage:toppage'%}">トップページに戻る</a>
+			</div><!-- メインコンテンツ　-->
+		
+			</div>
+		</div>
+		
+    
+    
+		
+		
+	
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script type="text/javascript" src="{% static 'toppage/js/jquery-3.4.1.min.js' %}"></script>
+
+		<!-- Include all compiled plugins (below), or include individual files as needed --> 
+		<script type="text/javascript" src="{% static 'toppage/js/popper.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'toppage/js/bootstrap-4.4.1.js' %}"></script>
+
+
+		<!-- ローカルでのテストリンク　--><!--
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script src="js/popper.min.js}"></script>
+		<script src="js/bootstrap-4.4.1.js}"></script>
+		-->	
+	</body>
 </html>
