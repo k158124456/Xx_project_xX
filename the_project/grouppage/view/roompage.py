@@ -38,8 +38,17 @@ class RoomPage(TemplateView):
         
         #入室した際の処理
         if 'status' in request.GET:
+
+            # 今のステータスが０　かつ　クエリで送られたステータスが０　→　オフラインのときにオフライン押しても、他のグループのステータス更新がないようにする。
             if not (status_detail.get(detail=request.GET['status']).status_id == 0 and status.get(userlist=request.user).status == 0):
-                
+                #action = 1　→　アクションの更新
+                log = LogAll(
+                    user=request.user, 
+                    project=project,
+                    group=group,
+                    action=1)
+                log.save()
+
                 #今いるプロジェクト内に存在するグループを取得
                 joined_groups = Group.objects.filter(project_id=project_id)
                 #ユーザーのステータス一覧を取得
@@ -87,7 +96,7 @@ class RoomPage(TemplateView):
 
 
 
-        #{権限持っているか, 名前, ステータス, 書き置きコメント}の辞書を作る
+        #{権限持っているか, 名前, ステータス, 書き置きコメント, 最終行動時間}の辞書を作る
         return_list = []
         for statuses in status_list_:
             for status in statuses:
@@ -97,6 +106,13 @@ class RoomPage(TemplateView):
                     if member.userlist == status.userlist:
                         status_dict["username"] = member.displayname
                         status_dict["role"] = member.role
+                        #最終更新時間を格納
+                        #group,project,userで絞ってdateを順番で取り出して、それの一番はじめを持ってくる
+                        try:
+                            latest_action = LogAll.objects.filter(project=project).filter(group=group).filter(user=member.userlist).order_by('-time').first().time
+                        except AttributeError:
+                            latest_action = ""
+                        status_dict["latest_action"] = latest_action
                         
                         for chat_ in chat:
                             if chat_.userlist == status.userlist:
@@ -142,6 +158,15 @@ class RoomPage(TemplateView):
         projectname=project.project_name
         projectmember = ProjectMember.objects.filter(projectlist=project)
         d_r=projectmember.filter(userlist=request.user)
+        
+        #ログをとる
+        #action = 2　→　一言の更新
+        log = LogAll(
+            user=request.user, 
+            project=Project.objects.get(uuid=project_id), 
+            group=Group.objects.get(uuid=groupID), 
+            action=2)
+        log.save()
 
         #status状態順→名前順？にソートする
         #count=0
