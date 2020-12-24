@@ -36,13 +36,29 @@ class RoomPage(TemplateView):
         projectmember = ProjectMember.objects.filter(projectlist=project)
         d_r=projectmember.filter(userlist=request.user)
         
-
+        #入室した際の処理
         if 'status' in request.GET:
             if not (status_detail.get(detail=request.GET['status']).status_id == 0 and status.get(userlist=request.user).status == 0):
-                sta_list=Status.objects.filter(userlist=request.user)
-                for sta in sta_list:
-                    sta.status=0
-                    sta.save()
+                
+                #今いるプロジェクト内に存在するグループを取得
+                joined_groups = Group.objects.filter(project_id=project_id)
+                #ユーザーのステータス一覧を取得
+                User_Statuses = Status.objects.filter(userlist=request.user)
+                #プロジェクトに存在するグループひとつずつについて
+                for joined_group in joined_groups:
+                    #ユーザーのもつステータスを全て取り出す
+                    for User_Status in User_Statuses:
+                        #もし、ステータスの中にあるuuidと今いるプロジェクトの中にあるグループIDが一致したら
+                        #そのステータスを0に一致させる
+                        if User_Status.group_id.uuid == joined_group.uuid:
+                            User_Status.status = 0
+                            User_Status.save()
+
+                    
+                #sta_list=Status.objects.filter(userlist=request.user)
+                #for sta in sta_list:
+                #    sta.status=0
+                #    sta.save()
 
                 st=request.GET['status']
                 record_status=Status.objects.get(group_id=Group.objects.get(uuid=groupID),userlist=request.user)
