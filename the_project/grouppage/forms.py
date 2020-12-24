@@ -7,3 +7,6 @@ class ChatForm(forms.Form):
 
 class StatusForm(forms.Form):
     detail = forms.CharField(max_length=10, label='sta', widget=forms.Textarea(attrs={'class':'form-controll'}))
+
+class GroupNameForm(forms.Form):
+    name=forms.CharField(max_length=100,label='name',widget=forms.Textarea(attrs={'class':'form-controll'}))
