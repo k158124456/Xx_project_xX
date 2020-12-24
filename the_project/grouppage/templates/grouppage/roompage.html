@@ -38,21 +38,23 @@
 -->
     <table>
         <tr>
-            <th>役職</th>
+            <th></th>
             <th>ユーザー名</th>
             <th>ステータス</th>
             <th>書き置き</th>
+            <th>最終更新</th>
         </tr>
         {% for contain in contains %}
         <tr>
             {% if contain.role == 1 %}
-            <td>管理者</td>
+            <td>★</td>
             {% else %}
-            <td>一般ユーザー</td>
+            <td></td>
             {% endif %}
             <td>{{contain.username}}</td>
             <td>{{contain.status}}</td>
             <td>{{contain.message}}</td>
+            <td>{{contain.latest_action}}</td>
         </tr>
         {% endfor %}
 
@@ -66,8 +68,9 @@
     <br><br>
 
 
-
+    {% if displayname_role.role == 1 %}
     <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/group_settings">グループ設定</a>
+    {% endif %}
     <a href="/mainpage/project_{{projectid}}">プロジェクトページに戻る</a>
 
     <br><br><br>
