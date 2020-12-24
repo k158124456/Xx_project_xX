@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from mainpage.models import *
@@ -7,6 +7,9 @@ from django.http import HttpResponse
 from ..forms import ChatForm
 from django.utils import timezone
 from django.contrib.auth.models import User
+import datetime
+from tzlocal import get_localzone
+from pytz import timezone, utc
 
 
 class RoomPage(TemplateView):
@@ -24,6 +27,9 @@ class RoomPage(TemplateView):
         #groupID = request.GET["groupname"]
         groupID = group_id
         projectID = project_id
+
+        #ステータスの更新があったか否か
+        update = False
         
         #インスタンス取得
         group = Group.objects.get(uuid=groupID)
@@ -41,6 +47,7 @@ class RoomPage(TemplateView):
 
             # 今のステータスが０　かつ　クエリで送られたステータスが０　→　オフラインのときにオフライン押しても、他のグループのステータス更新がないようにする。
             if not (status_detail.get(detail=request.GET['status']).status_id == 0 and status.get(userlist=request.user).status == 0):
+                update = True
                 #action = 1　→　アクションの更新
                 log = LogAll(
                     user=request.user, 
@@ -109,7 +116,9 @@ class RoomPage(TemplateView):
                         #最終更新時間を格納
                         #group,project,userで絞ってdateを順番で取り出して、それの一番はじめを持ってくる
                         try:
-                            latest_action = LogAll.objects.filter(project=project).filter(group=group).filter(user=member.userlist).order_by('-time').first().time
+                            time = LogAll.objects.filter(project=project).filter(group=group).filter(user=member.userlist).order_by('-time').first().time
+                            dif_time = str(int(((datetime.datetime.now().astimezone(get_localzone()) - time).seconds)/60))+"分前"
+                            latest_action = dif_time
                         except AttributeError:
                             latest_action = ""
                         status_dict["latest_action"] = latest_action
@@ -139,8 +148,11 @@ class RoomPage(TemplateView):
         self.params["status_list"]=status_list_
         self.params["contains"] = return_list
 
-
-        return render(request, 'grouppage/roompage.html', self.params)
+        if update==False:
+            return render(request, 'grouppage/roompage.html', self.params)
+        else:
+            url = '/mainpage/project_' + project_id + '/grouppage_' + group_id
+            return redirect(url)
     
     def post(self,request,project_id,group_id):
 
@@ -191,7 +203,7 @@ class RoomPage(TemplateView):
         record_chat = Chat(
             group_id = Group.objects.get(uuid=groupID),
             userlist = request.user,
-            datetime = timezone.datetime.now(),
+            datetime = datetime.datetime.now(),
             chat_messeage = chat_messeage
         )
         record_chat.save()
@@ -208,6 +220,15 @@ class RoomPage(TemplateView):
                     if member.userlist == status.userlist:
                         status_dict["username"] = member.displayname
                         status_dict["role"] = member.role
+                        #最終更新時間を格納
+                        #group,project,userで絞ってdateを順番で取り出して、それの一番はじめを持ってくる
+                        try:
+                            time = LogAll.objects.filter(project=project).filter(group=group).filter(user=member.userlist).order_by('-time').first().time
+                            dif_time = str(int(((datetime.datetime.now().astimezone(get_localzone()) - time).seconds)/60))+"分前"
+                            latest_action = dif_time
+                        except AttributeError:
+                            latest_action = ""
+                        status_dict["latest_action"] = latest_action
                         
                         for chat_ in chat:
                             if chat_.userlist == status.userlist:
