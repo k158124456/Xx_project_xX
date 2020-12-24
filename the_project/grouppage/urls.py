@@ -11,4 +11,5 @@ urlpatterns = [
     path("status_edit/",views.Status_new.as_view(),name="status_new"),
     path("group_namechange/",views.Group_NameChange.as_view(),name="group_namechange"),
     path("group_delete/",views.Group_Delete.as_view(),name="group_delete"),
+    path("group_delete_complete/",views.Group_Delete_Complete.as_view(),name="group_delete_complete"),
 ]
