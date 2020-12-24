@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
-from mainpage.models import *
+from mainpage.models import Project, Group, ProjectMember, Status, Invite,Chat,Status_detail
 import pandas as pd
 from django.http import HttpResponse
 from ..forms import *
@@ -78,14 +78,13 @@ class Status_new(TemplateView):
         projectname=project.project_name
         
 
-        status_id_new=status_detail.order_by('-status_id')[0]
         
         status_new = request.POST.get("detail")
         #groupID = request.GET["groupname"]
         projectID = project_id
         record_status = Status_detail(
             group_id=group,
-            status_id=1+status_id_new.status_id,
+            status_id=status_detail.count(),
             detail=status_new,
         )
         record_status.save()
