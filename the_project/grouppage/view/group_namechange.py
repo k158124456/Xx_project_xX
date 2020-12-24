@@ -43,7 +43,7 @@ class Group_NameChange(TemplateView):
         self.params["group"] = group
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
-        self.params["title"]=projectname+"/"+groupname+":setting_status_edit"
+        self.params["title"]=projectname+"/"+groupname+":setting_group_namechange"
 
         
 
@@ -63,17 +63,10 @@ class Group_NameChange(TemplateView):
         status_detail = Status_detail.objects.filter(group_id__uuid=groupID)
         projectname=project.project_name
         
-
-        
-        group_name = request.POST.get("name")
-        #groupID = request.GET["groupname"]
         projectID = project_id
-        record_status = Status_detail(
-            group_id=group,
-            status_id=status_detail.count(),
-            detail=status_new,
-        )
-        record_status.save()
+        
+        group.group_name=request.POST.get("name")
+        group.save()
 
         chat = Chat.objects.filter(group_id__uuid=groupID)
 
@@ -89,10 +82,10 @@ class Group_NameChange(TemplateView):
         self.params["chats"] = chat
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
-        self.params["title"]=projectname+"/"+groupname+":setting_status_edit"
+        self.params["title"]=projectname+"/"+groupname+":setting_group_namechange"
 
 
-        return render(request, 'grouppage/status_edit.html', self.params)
+        return render(request, 'grouppage/group_namechange.html', self.params)
 
 
 
