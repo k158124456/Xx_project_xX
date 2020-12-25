@@ -77,7 +77,7 @@ class Accept(TemplateView):
             #招待されているものを削除
             inv = Invite.objects.filter(
                 project_name=Project.objects.get(uuid=projectname)
-                )
+                ).filter(invited_user=request.user)
             inv.delete()
 
             redirect_url = reverse('mainpage:notify')
