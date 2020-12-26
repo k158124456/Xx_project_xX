@@ -1,10 +1,13 @@
-@charset "utf-8";
+}@charset "utf-8";
 
+.row{
+	width: 100vw;
+	height: 100vw;
+}
 
 .side_ber {
-	padding: 10px;
-	height: 1080px;
-	background: #86CB8F 0% 0% no-repeat padding-box;
+    color: #86CB8F 0% 0% no-repeat padding-box;
+    background-color: #67F5A3;
 }
 .side_ber_btn{
 	width: 97%;
@@ -19,10 +22,6 @@
 	margin-bottom: 10px;
 }
 
-.sticky-top{
-	height: 900px;
-
-}
 
 .help_btn{
 	width: 97%;
@@ -39,14 +38,14 @@
 
 .maincontent {
 	padding: 10px;
-	height: 1080px;
+	height: 100vw;;
 	background: #929292
 }
 
 .title h1{
-    font: normal normal normal 258px/320px Ink Free;
+    font: normal normal normal 18em Ink Free;
     font-weight: bolder;
-    letter-spacing: 35.86px;
+    letter-spacing: 0.10em;
 	color: #FFFFFF;
     opacity: 1;
 	text-align: center;
