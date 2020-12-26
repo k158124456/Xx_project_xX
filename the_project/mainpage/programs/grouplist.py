@@ -51,15 +51,22 @@ class GroupList(TemplateView):
         for status,detail_list in zip(status_lists,detail_lists):
             g_status_list=[]
             #for status in status_list:
-            count=1
-            status_list_=[]
-            while True:
-                if detail_list.filter(status_id=count).exists():#status存在確認
-                    if status.filter(status=count).exists():
-                        status_list_.append(status.filter(status=count))
-                    count+=1
-                else:break
-            status_list_=list(reversed(status_list_))#逆順のリスト
+            #count=1
+            #status_list_=[]
+            #while True:
+            #    if detail_list.filter(status_id=count).exists():#status存在確認
+            #        if status.filter(status=count).exists():
+            #            status_list_.append(status.filter(status=count))
+            #        count+=1
+            #    else:break
+            #status_list_=list(reversed(status_list_))#逆順のリスト
+
+            status_list=[]
+            for detail in detail_list:
+
+                if status.filter(status=detail.status_id).exists() and detail.status_id!=0:
+                    status_list.append(status.filter(status=detail.status_id))
+            status_list_=list(reversed(status_list))#逆順のリスト
 
             for statuss_ in status_list_:
                 for status_ in statuss_:

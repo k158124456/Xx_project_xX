@@ -14,14 +14,14 @@ class Project(models.Model):
 class Group(models.Model):
     #group_id=models.CharField(max_length=100,primary_key=True)
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    project_id=models.ForeignKey(Project, on_delete=models.CASCADE)
-    group_name=models.CharField(max_length=100,  null=True)
+    project_id = models.ForeignKey(Project, on_delete=models.CASCADE)
+    group_name = models.CharField(max_length=100,  null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class ProjectMember(models.Model):
     userlist = models.ForeignKey(User, on_delete=models.CASCADE)
     projectlist = models.ForeignKey(Project, on_delete=models.CASCADE)
-    displayname=models.CharField(max_length=100,default='SOME CATEGORY')
+    displayname = models.CharField(max_length=100,default='SOME CATEGORY')
     role=models.IntegerField(default='SOME CATEGORY')
 
 class Status_detail(models.Model):
@@ -30,7 +30,7 @@ class Status_detail(models.Model):
     detail = models.CharField(max_length=10,default='')
 
 class Status(models.Model):
-    group_id=models.ForeignKey(Group, on_delete=models.CASCADE)
+    group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
     userlist = models.ForeignKey(User, on_delete=models.CASCADE)
     status= models.IntegerField(default=0)
 
@@ -47,3 +47,9 @@ class Chat(models.Model):
     datetime = models.DateTimeField(default=timezone.now)
     chat_messeage = models.TextField(max_length=1000)
 
+class LogAll(models.Model):
+    time = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    action = models.IntegerField(default=0)
