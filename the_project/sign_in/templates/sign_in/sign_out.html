@@ -4,18 +4,11 @@
     <head>
         <meta charset="utf-8">
         <title>{{title}}</title>
-		
 		<!--↓でtoppage/static/toppage/css/style.cssを読み込むことができる-->
 		<link rel="stylesheet" type="text/css" href="{% static 'toppage/css/style.css' %}">
 		
-		<!-- Bootstrap -->
-		<link href="{% static 'toppage/css/bootstrap-4.4.1.css' %}" rel="stylesheet" type="text/css">
-		
-		
-		<!-- ローカルでのテストリンク　--><!--
-		<link href="css/bootstrap-4.4.1.css" rel="stylesheet" type="text/css">
-		<link href="css/style.css" rel="stylesheet" type="text/css">
-		-->
+		<!-- Bootstrap 
+		<link href="{% static 'toppage/css/bootstrap-4.4.1.css' %}" rel="stylesheet" type="text/css">-->
 		
 		<link rel="stylesheet"
           id="theme_link"
@@ -26,11 +19,10 @@
 	
 		<!-- ローカルでのテストリンク　--><!--
 		<link href="css/bootstrap-4.4.1.css" rel="stylesheet" type="text/css">
-		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="navbar-fixed-left.min.css">
     	<link rel="stylesheet" href="docs.css">
-		<script src="docs.js"></script>-->
-	
+		<script src="docs.js"></script>
+		<link href="css/style.css" rel="stylesheet" type="text/css">-->
 	
 		<script
             src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -71,7 +63,7 @@
 						{% endif %}
 						
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">help</a>
 							<div class="dropdown-menu">
 								<a class="dropdown-item" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">about us</a>
 									<div class="dropdown-divider"></div>
@@ -104,12 +96,12 @@
 		
 		
 		
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script type="text/javascript" src="{% static 'toppage/js/jquery-3.4.1.min.js' %}"></script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
+		<script type="text/javascript" src="{% static 'toppage/js/jquery-3.4.1.min.js' %}"></script>-->
 
-		<!-- Include all compiled plugins (below), or include individual files as needed --> 
+		<!-- Include all compiled plugins (below), or include individual files as needed  
 		<script type="text/javascript" src="{% static 'toppage/js/popper.min.js' %}"></script>
-		<script type="text/javascript" src="{% static 'toppage/js/bootstrap-4.4.1.js' %}"></script>
+		<script type="text/javascript" src="{% static 'toppage/js/bootstrap-4.4.1.js' %}"></script>-->
 
 
 		<!-- ローカルでのテストリンク　--><!--

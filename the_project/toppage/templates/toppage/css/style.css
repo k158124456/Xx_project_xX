@@ -5,6 +5,11 @@
 	height: 100vw;
 }
 
+.gnav {
+  flex-direction: column;
+}
+
+
 .side_ber {
     color: #86CB8F 0% 0% no-repeat padding-box;
     background-color: #67F5A3;
