@@ -83,8 +83,8 @@ class Status_new(TemplateView):
         status_new = request.POST.get("detail")
         #groupID = request.GET["groupname"]
         projectID = project_id
-        if Status_detail.objects.get(detail=status_new):
-            message = "同じステータスは登録できません。"
+        if Status_detail.objects.filter(group_id=group.uuid).filter(detail=status_new):
+            self.params["message"] = "同じステータスは登録できません。"
         else:
             record_status = Status_detail(
                 group_id=group,
@@ -108,8 +108,7 @@ class Status_new(TemplateView):
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
         self.params["title"]=projectname+"/"+groupname+":setting_status_edit"
-        self.params["message"] = message
-
+        
         return render(request, 'grouppage/status_edit.html', self.params)
 
 
