@@ -17,7 +17,7 @@ class Leave(TemplateView):
             groups = Group.objects.filter(project_id=project.projectlist.uuid)
             
             for group in groups:
-                statuses = Status.objects.filter(group_id=group.uuid)
+                statuses = Status.objects.filter(group_id=group.uuid).filter(userlist=user)
                 
                 for status in statuses:
                     status.status = 0
