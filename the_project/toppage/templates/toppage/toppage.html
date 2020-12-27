@@ -54,11 +54,13 @@
 				<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							{% if user.is_authenticated %}
-								<a class="nav-link" onclick="location.href='{% url 'sign_in:sign_in' %}'">メインページへ</a>
-								<!--<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'mainpage:mainpage' %}'">
+						{% if user.is_authenticated %}
+							<!--ログインしていた場合の処理-->
+							<a class="nav-link" onclick="location.href='{% url 'mainpage:mainpage' %}'">メインページへ</a>
+							<!--<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'mainpage:mainpage' %}'">
 									メインページへ</button>-->
-							{% else %}
+						{% else %}
+							<!--すでにログインしていた場合の処理-->
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" onclick="location.href='{% url 'sign_in:sign_in' %}'">Sign in</a>
