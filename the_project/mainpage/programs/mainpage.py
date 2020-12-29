@@ -17,4 +17,4 @@ class MainPage(TemplateView):
             "projects" : projects
         }
 
-        return render(request, 'mainpage/mainpage.html', params)
+        return render(request, 'mainpage/mainpage_main.html', params)
