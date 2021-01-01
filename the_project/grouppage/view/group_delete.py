@@ -43,6 +43,7 @@ class Group_Delete(TemplateView):
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
         self.params["title"]=projectname+"/"+groupname+":setting_group_detele"
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
 
         
 
@@ -77,6 +78,7 @@ class Group_Delete_Complete(TemplateView):
         self.params["groupname"] = groupname
         self.params["displayname_role"] = d_r[0]
         self.params["title"]=projectname+"/"+groupname+":setting_group_detele_complete"
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
 
         
 

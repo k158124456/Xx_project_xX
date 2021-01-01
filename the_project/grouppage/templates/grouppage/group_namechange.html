@@ -1,29 +1,40 @@
+{% extends 'mainpage/mainpage.html' %}
+{% block content %}
 {% load static %}
-<! dtype html >
-<html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <title>{{title}}</title>
-    </head>
-    <body>
-    <h1>{{projectname}}/{{groupname}}</h1>
-    <h2>設定:グループ名変更</h2>
+<div class="group_containts">
+    {% load static %}
+    <! dtype html>
+        <html lang="ja">
 
-    現在のグループ名:{{groupname}}
+        <head>
+            <meta charset="utf-8">
+            <title>{{title}}</title>
+        </head>
 
-    <form action="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/group_namechange/" method="post">
-        {% csrf_token %}
-    {{form}}
-    <input type="submit" value="名前変更">
+        <body>
+            <h1>{{projectname}}/{{groupname}}</h1>
+            <h2>設定:グループ名変更</h2>
 
-    
-    <br><br>
-    <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/group_settings">グループ設定に戻る</a><br>
-    <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}">グループページに戻る</a><br>
-    <a href="/mainpage/project_{{projectid}}">プロジェクトページに戻る</a>
+            現在のグループ名:{{groupname}}
+            <div class="chat_container">
+                <form action="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/group_namechange/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group chat_content">
+                        {{form}}</div>
+                    <div class="chat_input chat_content">
+                        <input class="btn btn-info" type="submit" value="名前変更">
+                    </div>
+            </div>
+
+            <br>
+            <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/group_settings">グループ設定に戻る</a><br>
+            <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}">グループページに戻る</a><br>
 
 
-    </body>
-</html>
 
+        </body>
 
+        </html>
+</div>
+
+{% endblock %}

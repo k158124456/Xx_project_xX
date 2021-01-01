@@ -2,10 +2,15 @@
 {% block setting %}
 <p>プロジェクトの名前を変更します</p>
 <p>新しいプロジェクト名を入力</p>
-<form action="/mainpage/project_{{project_uuid}}/setting/namesetting" method="post">
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" value="変更する">
-</form>
+<div class="chat_container">
+    <form action="/mainpage/project_{{project_uuid}}/setting/namesetting" method="post">
+        {% csrf_token %}
+        <div class="form-group chat_content">
+            {{form}}</div>
+        <div class="chat_input chat_content">
+            <input class="btn btn-info" type="submit" value="変更する">
+        </div>
+    </form>
+</div>
 <p>{{message}}</p>
 {% endblock %}

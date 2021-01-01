@@ -43,14 +43,22 @@
         </div>
         {% endfor %}
     </div>
-    <br>
+    <div>
+        <p>書き置き</p>
+        <div class="chat_container">
+            <form action="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group chat_content">
+                    {{field}}
+                </div>
+                {% endfor %}
+                <div class="chat_input chat_content">
+                    <input class="btn btn-info" type="submit" value="送信">
+                </div>
+        </div>
+    </div>
     <a href="/mainpage/project_{{projectid}}">プロジェクトページに戻る</a>
-    <br><br><br>
-    <p>書き置きは1000字まで</p>
-    <form action="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/" method="post">
-        {% csrf_token %}
-        {{form}}
-        <input type="submit" value="送信">
 </div>
 
 {% endblock %}

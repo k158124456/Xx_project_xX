@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+.top{
+	width: 100%;
+}
 
 .side_ber {
 	padding: 10px;
@@ -28,19 +31,32 @@
 }
 
 .maincontent {
-	padding: 10px;
-	height: 1080px;
-	background: #929292
+	padding: 0px;
+	width: 100%;
+	background: #766f6f
 }
 
 .title h1{
-    font: normal normal normal 258px/320px Ink Free;
-    font-weight: bolder;
-	letter-spacing: 35.86px;
 	
-	color: #ffffff;
+    font: normal normal normal 600% Ink Free;
+    font-weight: bolder;
+	letter-spacing: 20px;
+	
+	color: #434343;
     opacity: 1;
-	text-align: center;
+	
+
+}
+
+.title{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	margin:0;
+	padding:0;
 }
 
 .topbar_containts{
@@ -62,7 +78,8 @@
 
 .main_title{
 	text-align: center;
-	padding-top: 100px;
+	padding-top: 200px;
+	font-size: 400%;
 
 }
 .notice_link{
@@ -165,3 +182,47 @@ h1.project_name{
 .statuses_container{
 	width: 100%;
 }
+
+.form-group{
+	width: 100%;
+}
+
+.chat_content{
+	width: 50%;
+	display: table-cell;
+	vertical-align: middle;
+	padding: 10px;
+  }
+  
+.chat_conteiner{
+	width: 100%;
+	display: table;
+	table-layout: fixed;
+  }
+
+  .setting_list{
+	width: 250px;
+	padding: 50px 0px;
+	margin-top: 50px;
+	border: 2px;
+	border-color: #7b8f92;
+	border-right-style: solid;
+
+
+
+  }
+  .setting_container{
+	padding: 50px 20px;
+	margin-top: 50px;
+
+  }
+  .setting_item{
+	  margin: 40px 20px;
+  }
+  .setting_div{
+	display: flex;
+  }
+
+  .notify_link{
+	text-align: center;
+  }

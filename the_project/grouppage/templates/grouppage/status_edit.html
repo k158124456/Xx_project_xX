@@ -1,46 +1,58 @@
+{% extends 'mainpage/mainpage.html' %}
+{% block content %}
 {% load static %}
-<! dtype html >
-<html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <title>{{title}}</title>
-    </head>
-    <body>
-    <h1>{{projectname}}/{{groupname}}</h1>
-    <h2>設定:ステータス編集</h2>
-    ステータスはグループごと
-    
-    <table>
-        <tr>
-            <th>既存ステータス</th>
-            <th>オプション</th>
-        </tr>
-        {% for status_detail in status_details %}
-        <tr>
-            <td>{{status_detail.detail}}</td>
-            {% if forloop.first %}
-            {% else %}
-            <td><a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/status_edit?target={{status_detail.status_id}}&mode=delete">削除</a></td>
-            {% endif %}
-            <br>
-        </tr>
-        {% endfor %}
-    </table>
+<div class="group_containts">
+    {% load static %}
+    <! dtype html>
+        <html lang="ja">
 
-    <form action="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/status_edit/" method="post">
-        {% csrf_token %}
-    {{form}}
-    <input type="submit" value="新規登録">
-    <p>{{message}}</p>
+        <head>
+            <meta charset="utf-8">
+            <title>{{title}}</title>
+        </head>
 
-    
-    <br><br>
-    <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/group_settings">グループ設定に戻る</a><br>
-    <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}">グループページに戻る</a><br>
-    <a href="/mainpage/project_{{projectid}}">プロジェクトページに戻る</a>
+        <body>
+            <h1>{{projectname}}/{{groupname}}</h1>
+            <h2>設定:ステータス編集</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>既存ステータス</th>
+                    <th>オプション</th>
+                </tr>
+                {% for status_detail in status_details %}
+                <tr>
+                    <td>{{status_detail.detail}}</td>
+                    {% if forloop.first %}
+                    <td>
+                        <p>オフラインは削除できません</p>
+                    </td>
+                    {% else %}
+                    <td><a
+                            href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/status_edit?target={{status_detail.status_id}}&mode=delete">削除</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="chat_container">
+                <form action="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/status_edit/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group chat_content">
+                        {{form}}
+                    </div>
+                    <div class="chat_input chat_content">
+                        <input class="btn btn-info" type="submit" value="新規登録">
+                    </div>
+            </div>
+            <p>{{message}}</p>
+
+            <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/group_settings">グループ設定に戻る</a><br>
+            <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}">グループページに戻る</a><br>
 
 
-    </body>
-</html>
+        </body>
 
+        </html>
+</div>
 
+{% endblock %}

@@ -1,112 +1,116 @@
 {% load static %}
-<! dtype html >
-<html lang="ja">
+<! dtype html>
+	<html lang="ja">
 
-<head>
-	<meta charset="utf-8">
-	<title>YAWYA</title>
-        <!--↓でtoppage/static/toppage/css/style.cssを読み込むことができる-->
+	<head>
+		<meta charset="utf-8">
+		<title>YAWYA</title>
+		<!--↓でtoppage/static/toppage/css/style.cssを読み込むことができる-->
 		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-		
+
 		<!-- Bootstrap -->
 		<link href="{% static 'css/bootstrap-4.4.1.css' %}" rel="stylesheet" type="text/css">
 
 		<link rel="stylesheet" href="{% static 'css/navbar-fixed-left.min.css' %}">
 		<link rel="stylesheet" href="{% static 'css/docs.css' %}">
-		<script
-            src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-            integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-            crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+			integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-				integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-				crossorigin="anonymous"></script>
+			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+			crossorigin="anonymous"></script>
 		<script src="{% static 'js/docs.js' %}"></script>
 		<script async defer src="https://buttons.github.io/buttons.js"></script>
 
-</head>
-	
-<body>
-<h1 hidden>toppage</h1>
-			
+	</head>
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top sidebar">
-	<a class="navbar-brand side_brand" href="{% url 'toppage:toppage' %}">yawya</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-		aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-
-	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-		<ul class="navbar-nav">
-			<li class="nav-item">
-
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" onclick="location.href='{% url 'sign_in:sign_in' %}'">Sign in</a>
-				<!--<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_in:sign_in' %}'">Sign in</button>-->
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">Sign up</a>
-				<!--<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">Sign up</button>-->
-			</li>
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">help</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">about us</a>
-						<div class="dropdown-divider"></div>
-					<a class="dropdown-item" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">contact</a>
-						<div class="dropdown-divider"></div>
-					<a class="dropdown-item" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">privacy</a>
-						<div class="dropdown-divider"></div>
-					<a class="dropdown-item" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">Separated link</a>
-						<div class="dropdown-divider"></div>
-					<a class="dropdown-item" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">One more separated link</a>
-				</div>
-			</li>
+	<body>
+		<h1 hidden>toppage</h1>
 
 
-		</ul>
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top sidebar">
+			<a class="navbar-brand side_brand" href="{% url 'toppage:toppage' %}">yawya</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+				aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-	</div>
-</nav>
-	
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav">
+					<li class="nav-item">
 
-			<!-- 左サイドバー　-->
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" onclick="location.href='{% url 'sign_in:sign_in' %}'">Sign in</a>
+						<!--<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_in:sign_in' %}'">Sign in</button>-->
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">Sign up</a>
+						<!--<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">Sign up</button>-->
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">help</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">about
+								us</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item"
+								onclick="location.href='{% url 'sign_up:sign_up_page' %}'">contact</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item"
+								onclick="location.href='{% url 'sign_up:sign_up_page' %}'">privacy</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item"
+								onclick="location.href='{% url 'sign_up:sign_up_page' %}'">Separated link</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">One more
+								separated link</a>
+						</div>
+					</li>
 
-			
-	
-			<!-- メインコンテンツ　-->
-			<div class="col-md-12 maincontent">
-				
-				<div class="title">
-					<h1>yawya</h1>
-				</div>
+
+				</ul>
+
 			</div>
-			<!-- メインコンテンツ　-->
+		</nav>
 
 
-    
-		
-		
-		
-		
-		
-		
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
+		<!-- 左サイドバー　-->
+
+
+
+		<!-- メインコンテンツ　-->
+		<div class="col-md-12 maincontent">
+			<img class="top" src="{% static 'pic/top.png' %}" alt="top">
+			<div class="title">
+				<h1>yawya</h1>
+			</div>
+		</div>
+		<!-- メインコンテンツ　-->
+
+
+
+
+
+
+
+
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
     <script type="text/javascript" src="{% static 'toppage/js/jquery-3.4.1.min.js' %}"></script>-->
 
-    <!-- Include all compiled plugins (below), or include individual files as needed 
+		<!-- Include all compiled plugins (below), or include individual files as needed 
     <script type="text/javascript" src="{% static 'toppage/js/popper.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'toppage/js/bootstrap-4.4.1.js' %}"></script>--> 
-		
-		
-	<!-- ローカルでのテストリンク　--><!--
+    <script type="text/javascript" src="{% static 'toppage/js/bootstrap-4.4.1.js' %}"></script>-->
+
+
+		<!-- ローカルでのテストリンク　-->
+		<!--
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script src="js/popper.min.js}"></script>
     <script src="js/bootstrap-4.4.1.js}"></script>
 		-->
-		
-</body>
-</html>
 
+	</body>
 
+	</html>
