@@ -17,6 +17,7 @@ class CreateGroup(TemplateView):
     def get(self, request, project_id):
 
         self.params["project_name"] = project_id
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         return render(request, 'mainpage/creategroup.html', self.params)
 
     def post(self, request, project_id):
@@ -58,6 +59,6 @@ class CreateGroup(TemplateView):
                 detail = "オンライン",
             )
             sd.save()
-
+            self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
             return render(request, 'mainpage/creategroup.html', self.params)
 

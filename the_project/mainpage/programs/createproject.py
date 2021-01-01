@@ -17,6 +17,7 @@ class CreateProject(TemplateView):
 
         }
     def get(self, request):
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         return render(request, "mainpage/createptoject.html", self.params)
 
     def post(self, request):
@@ -24,7 +25,7 @@ class CreateProject(TemplateView):
         #self.params["project_name"] = Project.objects.all().id
 
         recordable = True
-
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         if recordable:
             proj = Project(
                 project_name = project_name

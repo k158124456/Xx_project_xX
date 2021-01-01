@@ -58,6 +58,7 @@ class Status_new(TemplateView):
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
         self.params["title"]=projectname+"/"+groupname+":setting_status_edit"
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
 
         
 
@@ -108,6 +109,7 @@ class Status_new(TemplateView):
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
         self.params["title"]=projectname+"/"+groupname+":setting_status_edit"
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         
         return render(request, 'grouppage/status_edit.html', self.params)
 

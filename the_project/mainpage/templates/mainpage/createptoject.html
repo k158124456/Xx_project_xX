@@ -1,11 +1,19 @@
+{% extends 'mainpage/mainpage.html' %}
+{% block content %}
 {% load static %}
-
-<h1>プロジェクト作成ページ</h1>
-{{message}}
-<p>プロジェクトに設定できる名前は２０字までです</p>
-<form action="/mainpage/createproject/" method="post">
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" value="作成">
+<div class="group_containts">
+    <h1>プロジェクト作成ページ</h1>
+    <p>{{message}}</p>
+    <p>プロジェクトに設定できる名前は２０字までです</p>
+    <div class="chat_container">
+        <form action="/mainpage/createproject/" method="post">
+            {% csrf_token %}
+            <div class="form-group chat_content">
+                {{form}}</div>
+            <div class="chat_input chat_content">
+                <input class="btn btn-info" type="submit" value="作成">
+            </div>
+    </div>
     <a href="/mainpage">メインページに戻る</a>
-{{project_name}}
+</div>
+{% endblock %}

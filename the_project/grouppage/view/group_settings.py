@@ -43,6 +43,7 @@ class Group_settings(TemplateView):
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
         self.params["title"]=projectname+"/"+groupname+":setting"
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         
 
         return render(request, 'grouppage/group_settings.html', self.params)
@@ -82,6 +83,7 @@ class Group_settings(TemplateView):
         self.params["chats"] = chat
         self.params["status_details"] = status_detail
         self.params["displayname_role"] = d_r[0]
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
 
 
         return render(request, 'grouppage/group_settings.html', self.params)

@@ -1,12 +1,23 @@
+{% extends 'mainpage/mainpage.html' %}
+{% load boost %}
+{% block content %}
 {% load static %}
-
-<h1>グループを作成する</h1>
-{{message}}
-<p>プロジェクトに設定できる名前は２０字までです</p>
-<form action="/mainpage/project_{{project_name}}/creategroup" method="post">
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" value="作成">
+<div class="group_containts">
+    <h1>グループを作成する</h1>
+    {{message}}
+    <p>グループに設定できる名前は２０字までです</p>
+    <div class="chat_container">
+        <form action="/mainpage/project_{{project_name}}/creategroup" method="post">
+            {% csrf_token %}
+            <div class="form-group chat_content">
+                {{form}}
+            </div>
+            <div class="chat_input chat_content">
+                <input class="btn btn-info" type="submit" value="作成">
+            </div>
+    </div>
     <a href="/mainpage/project_{{project_name}}">メインページに戻る</a>
 
     {{debug}}
+    {% endblock %}
+</div>

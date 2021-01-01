@@ -1,9 +1,12 @@
+{% extends 'mainpage/mainpage.html' %}
+{% load boost %}
+{% block content %}
 {% load static %}
-
-<h1>通知ページだよ</h1>
+<div class="group_containts">
+<h1>届いている通知</h1>
 <a href="/mainpage">メインページに戻る</a>
 <p>{{message}}</p>
-<table>
+<table class="table">
     <tr>
         <th>プロジェクト名</th>
         <th>招待したユーザー</th>
@@ -21,7 +24,9 @@
     </tr>
     {% endfor %}
 </table>
-{{debug}}
+</div>
+
+{% endblock %}
 
 
 

@@ -1,3 +1,7 @@
+{% extends 'mainpage/mainpage.html' %}
+{% block content %}
+{% load static %}
+<div class="group_containts">
 {% load static %}
 <! dtype html >
 <html lang="ja">
@@ -9,9 +13,9 @@
     <h1>{{projectname}}/{{groupname}}</h1>
     <h2>設定:グループ削除</h2>
     グループ名:{{groupname}}<br>
-    を削除しちゃってもいい？<br><br>
+    を削除してもいいですか？<br><br>
     
-    <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/group_delete_complete">削除するます！！！</a><br>
+    <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/group_delete_complete">削除する</a><br>
 
     <br><br>
     <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/group_settings">グループ設定に戻る</a><br>
@@ -23,3 +27,6 @@
 </html>
 
 
+</div>
+
+{% endblock %}
