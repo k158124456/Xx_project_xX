@@ -17,7 +17,7 @@ class InviteMembers(TemplateView):
             "form_message" : InviteForm()["message"],
             "degug" : [],
             "message" : "",
-            "user" : "",
+            "usr" : "",
             "msg":""
         }
     ################################################################################
@@ -30,7 +30,7 @@ class InviteMembers(TemplateView):
         return user_id
     #自分自身に招待を送った場合(同じ場合False、異なる場合True)
     def owner(self, userid):
-        return userid != self.params["user"]
+        return userid != self.params["usr"]
 
     #招待するユーザがすでにprojectに参加しているかどうかの判別を行う関数
     def check_recorded(self, invited_id, project_id):
@@ -44,7 +44,8 @@ class InviteMembers(TemplateView):
     #################################################################################
 
     def get(self, request, project_id):
-        self.params["user"] = request.GET["usr"]
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
+        self.params["usr"] = request.GET["usr"]
         self.params["project"] = Project.objects.get(uuid=project_id)
 
         # クエリパラメータ(?usr=<username>)で指定されたusernameをinvite_userに格納
@@ -56,11 +57,12 @@ class InviteMembers(TemplateView):
 
     def post(self, request, project_id):
         # フォームから入力された各値を格納
-        self.params["user"] = request.GET["usr"]
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
+        self.params["usr"] = request.GET["usr"]
         self.params["project"] = Project.objects.get(uuid=project_id)
         self.message = request.POST.get("message")
         self.invited_user = request.POST.get("invited_user")
-        self.invite_user = self.params["user"]
+        self.invite_user = self.params["usr"]
         self.invited_project = self.params["project"]
 
         

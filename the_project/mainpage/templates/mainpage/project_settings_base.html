@@ -1,6 +1,9 @@
+{% extends 'mainpage/mainpage.html' %}
+{% load boost %}
+{% block content %}
 {% load static %}
-
-<h1>Project Settingだよ</h1>
+<div class="group_containts">
+<h1>プロジェクト設定</h1>
 {% if role == 1 %}
 <a href="/mainpage/project_{{project_uuid}}/setting/namesetting">プロジェクトの名前変更</a><br>
 <a href="/mainpage/project_{{project_uuid}}/setting/member">メンバーの設定</a><br>
@@ -11,6 +14,7 @@
 <a href="/mainpage/project_{{project_uuid}}/setting/display_name">名前の表示設定</a><br>
 {% endif %}
 <a href="/mainpage/project_{{project_uuid}}">メインページに戻る</a>
-{{role}}
-{% block content %}
+{% block setting %}
 {% endblock %}
+{% endblock %}
+</div>

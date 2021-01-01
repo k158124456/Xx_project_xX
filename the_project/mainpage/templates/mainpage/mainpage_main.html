@@ -1,5 +1,11 @@
 {% extends 'mainpage/mainpage.html' %}
-{% load boost %}
 {% block content %}
-<a  href="/mainpage/notice/">届いている通知を確認する</a>
+
+{% load boost %}
+{% load static %}
+
+<h1 class=main_title>YAWYA</h1>
+<a class="notice_link" href="/mainpage/notice/">届いている通知を確認する</a>
+
+
 {% endblock %}

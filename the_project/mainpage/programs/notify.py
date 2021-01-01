@@ -12,13 +12,15 @@ from urllib.parse import urlencode
 
 class Notify(TemplateView):
     def get(self, request):
+        projects = ProjectMember.objects.filter(userlist=request.user)
         notify_list = Invite.objects.filter(invited_user=request.user)
         projects = ProjectMember.objects.filter(userlist=request.user)
 
         params = {
             "userdata" : str(request.user),
             "items" : notify_list,
-            "message":""
+            "message":"",
+            "projects" : projects,
         }
         # リダイレクトされた時に一緒に渡されたクエリパラメータから判断
         if 'a_project' in request.GET:
@@ -33,6 +35,7 @@ class Notify(TemplateView):
 
 class Accept(TemplateView):
     def get(self, request):
+        
         user = request.user
         #パラメータのprojectを読み取り
         projectname = request.GET['project']

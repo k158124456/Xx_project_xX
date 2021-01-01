@@ -1,6 +1,9 @@
+{% extends 'mainpage/project_settings_base.html' %}
+{% block setting %}
 {% load static %}
 
 <h1>本当にプロジェクトを削除しますか？</h1>
 <p>削除すると作成したグループは全て消え、元に戻すことはできなくなります。</p>
 <a href="/mainpage/project_{{project_uuid}}/setting/delete/complete">削除する</a><a href="/mainpage/project_{{project_uuid}}/setting/delete">設定に戻る</a>
 
+{% endblock %}

@@ -1,3 +1,5 @@
+{% extends 'mainpage/mainpage.html' %}
+{% block content %}
 {% load static %}
 
 <h1>InvitePageですよ！</h1>
@@ -16,3 +18,4 @@
 </form>
 <a href="/mainpage/project_{{project.uuid}}">メインページに戻る</a>
 {{debug}}
+{% endblock %}

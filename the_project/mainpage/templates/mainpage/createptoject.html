@@ -1,11 +1,14 @@
+{% extends 'mainpage/mainpage.html' %}
+{% block content %}
 {% load static %}
-
+<div class="group_containts">
 <h1>プロジェクト作成ページ</h1>
-{{message}}
+<p>{{message}}</p>
 <p>プロジェクトに設定できる名前は２０字までです</p>
 <form action="/mainpage/createproject/" method="post">
     {% csrf_token %}
     {{form}}
     <input type="submit" value="作成">
     <a href="/mainpage">メインページに戻る</a>
-{{project_name}}
+</div>
+{% endblock %}

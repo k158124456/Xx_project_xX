@@ -23,6 +23,7 @@ class RoomPage(TemplateView):
         }
     
     def get(self,request,project_id,group_id):
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         #groupid と　projectidを取得
         #groupID = request.GET["groupname"]
         groupID = group_id
@@ -155,7 +156,7 @@ class RoomPage(TemplateView):
             return redirect(url)
     
     def post(self,request,project_id,group_id):
-
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         #groupID = request.GET["groupname"]
         groupID = group_id
         

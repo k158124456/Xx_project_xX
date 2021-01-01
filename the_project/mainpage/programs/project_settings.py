@@ -22,6 +22,7 @@ class ProjectSettings(TemplateView):
         }
         role = ProjectMember.objects.filter(projectlist__uuid=project_id).get(userlist=request.user).role
         self.params["role"] = role
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         return render(request, 'mainpage/project_settings_main.html', self.params)
 
 class ProjectSettings_nemesetting(TemplateView):
@@ -37,6 +38,7 @@ class ProjectSettings_nemesetting(TemplateView):
         }
         role = ProjectMember.objects.filter(projectlist__uuid=project_id).get(userlist=request.user).role
         self.params["role"] = role
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         return render(request, 'mainpage/project_settings_namesetting.html', self.params)
     def post(self, request, project_id):
         self.params = {
@@ -51,6 +53,7 @@ class ProjectSettings_nemesetting(TemplateView):
         project.project_name = new_project_name
         project.save()
         self.params["message"] = "新しいプロジェクト名を”" + new_project_name + "”に設定しました"
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         return render(request, 'mainpage/project_settings_namesetting.html', self.params)
 
 class ProjectSettings_display_name(TemplateView):
@@ -66,6 +69,7 @@ class ProjectSettings_display_name(TemplateView):
         }
         role = ProjectMember.objects.filter(projectlist__uuid=project_id).get(userlist=request.user).role
         self.params["role"] = role
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         return render(request, 'mainpage/project_settings_display_name.html', self.params)
     
     def post(self, request, project_id):
@@ -82,6 +86,7 @@ class ProjectSettings_display_name(TemplateView):
         user.displayname = new_display_name
         user.save()
         self.params["message"] = "新しい表示名を”" + new_display_name + "”に設定しました"
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         return render(request, 'mainpage/project_settings_display_name.html', self.params)
 
 class ProjectSettings_member(TemplateView):
@@ -100,6 +105,7 @@ class ProjectSettings_member(TemplateView):
         own = all_members.get(userlist=request.user)
         self.params["me"] = own
         self.params["userlist"] = members
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         return render(request, 'mainpage/project_settings_member.html', self.params)
 
 class ProjectSettings_member_change(TemplateView):
@@ -116,7 +122,7 @@ class ProjectSettings_member_change(TemplateView):
         if role == 0:
             pm.role = 1
         pm.save()
-
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         return redirect("/mainpage/project_"+project_id+"/setting/member")
 
 class ProjectSettings_delete(TemplateView):
@@ -130,6 +136,7 @@ class ProjectSettings_delete(TemplateView):
         }
         role = ProjectMember.objects.filter(projectlist__uuid=project_id).get(userlist=request.user).role
         self.params["role"] = role
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         return render(request, 'mainpage/project_settings_delete.html', self.params)
 
 class ProjectSettings_delete_verification(TemplateView):
@@ -139,11 +146,13 @@ class ProjectSettings_delete_verification(TemplateView):
         self.params = {
             "project_uuid" : project_id
         }
-
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
         return render(request, 'mainpage/project_settings_delete_varification.html', self.params)
 
 class ProjectSettings_delete_complete(TemplateView):
     def get(self, request, project_id):
         project = Project.objects.get(uuid=project_id)
         project.delete()
-        return render(request, 'mainpage/project_settings_delete_complete.html')
+        self.params = {}
+        self.params["projects"] = ProjectMember.objects.filter(userlist=request.user)
+        return render(request, 'mainpage/project_settings_delete_complete.html', self.params)

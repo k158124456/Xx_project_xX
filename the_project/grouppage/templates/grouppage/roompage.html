@@ -1,107 +1,56 @@
+{% extends 'mainpage/mainpage.html' %}
+{% block content %}
 {% load static %}
-<! dtype html >
-<html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <title>{{title}}</title>
-        <meta http-equiv="refresh" content="60; URL=">
-    </head>
-    <body>
-    <h1>{{projectname}}/{{groupname}}</h1>
-
-    ディスプレイネーム:{{displayname_role.displayname}}<br>
-    役職:{% if displayname_role.role == 1 %}管理者{%else%}メンバー{%endif%}<br><br>
-    <!--
-    <table>
-        <tr>
-            <th>ユーザー名</th>
-            <th>ステータス</th>
-        </tr>
-        {% for statuss in status_list %}
-            {% for status in statuss %}
-                <tr>
-                {% for projectmember in projectmembers %}
-                    {% if projectmember.userlist == status.userlist %}
-                        <td>{{projectmember.displayname}}</td>
-                    {% endif %}
-                {% endfor %}
-                
-                {% for status_detail in status_details %}
-                    {% if status.status == status_detail.status_id %}
-                        <td>{{status_detail.detail}}</td>
-                    {% endif %}
-                {% endfor %}
-                </tr>
-            {% endfor %}
-        {% endfor %}
-    </table>
--->
-    <table>
-        <tr>
-            <th></th>
-            <th>ユーザー名</th>
-            <th>ステータス</th>
-            <th>書き置き</th>
-            <th>最終更新</th>
-        </tr>
-        {% for contain in contains %}
-        <tr>
-            {% if contain.role == 1 %}
-            <td>★</td>
-            {% else %}
-            <td></td>
-            {% endif %}
-            <td>{{contain.username}}</td>
-            <td>{{contain.status}}</td>
-            <td>{{contain.message}}</td>
-            <td>{{contain.latest_action}}</td>
-        </tr>
-        {% endfor %}
-
-    </table>
-
-    <br>ステータス更新<br>
-    {%for status_detail in status_details %}
-        <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}?status={{status_detail.detail}}">{{status_detail.detail}}</a><br>
-    {% endfor %}
-
-    <br><br>
-
-
+<div class="group_containts">
+    <h1 class="project_name">{{projectname}} / {{groupname}}</h1>
     {% if displayname_role.role == 1 %}
-    <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/group_settings">グループ設定</a>
+    <a href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/group_settings"><img class="setting"
+            src="{% static 'pic/setting.png' %}" alt="Setting"></a>
     {% endif %}
-    <a href="/mainpage/project_{{projectid}}">プロジェクトページに戻る</a>
-
-    <br><br><br>
-<!--
-    <h3>チャット</h3>
-    <table>
-    <tr>
-        <th>時間</th>
-        <th>ユーザー名</th>
-        <th>内容</th>
-    </tr>
-    {% for chat in chats %}
-        <tr>
-        <td>{{chat.datetime}}</td>
-        {% for projectmember in projectmembers %}
-            {% if projectmember.userlist == chat.userlist %}    
-                <td>{{projectmember.displayname}}</td>
-            {% endif %}
+    <div class="uesr_info">
+        <p>自分の名前 : {{displayname_role.displayname}}</p>
+        <p>自分の役職 : {% if displayname_role.role == 1 %}管理者{%else%}メンバー{%endif%}</p>
+    </div>
+    <div class="status_detail_container">
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>ユーザー名</th>
+                <th>ステータス</th>
+                <th>書き置き</th>
+                <th>最終更新</th>
+            </tr>
+            {% for contain in contains %}
+            <tr>
+                {% if contain.role == 1 %}
+                <td>★</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                <td>{{contain.username}}</td>
+                <td>{{contain.status}}</td>
+                <td>{{contain.message}}</td>
+                <td>{{contain.latest_action}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br>ステータス更新<br>
+    <div class="statuses_container">
+        {%for status_detail in status_details %}
+        <div class="status_detail"><a class="detail_txt"
+                href="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}?status={{status_detail.detail}}">{{status_detail.detail}}</a>
+        </div>
         {% endfor %}
-        <td>{{chat.chat_messeage}}</td>
-        </tr>
-    {% endfor %}
-    </table>
--->
+    </div>
+    <br>
+    <a href="/mainpage/project_{{projectid}}">プロジェクトページに戻る</a>
+    <br><br><br>
     <p>書き置きは1000字まで</p>
     <form action="/mainpage/project_{{projectid}}/grouppage_{{group.uuid}}/" method="post">
         {% csrf_token %}
-    {{form}}
-    <input type="submit" value="送信">
+        {{form}}
+        <input type="submit" value="送信">
+</div>
 
-    </body>
-</html>
-
-
+{% endblock %}
