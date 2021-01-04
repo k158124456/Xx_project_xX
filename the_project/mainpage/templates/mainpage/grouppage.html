@@ -10,9 +10,10 @@
     <a href="/mainpage/project_{{project_uuid}}/invite?usr={{userdata}}"><img class="invite" src="{% static 'pic/invite.png' %}" alt="invite"></a>
     {% endif %}
     <!--ユーザーが管理者かどうかを判別、管理者なら新しいグループを作成できるようにする-->
-    {% if admin_or_not == 1 %}
+    
 
     <div class="container">
+        {% if admin_or_not == 1 %}
         <div class="new_group">
             <a class="to_new" href="/mainpage/project_{{project_uuid}}/creategroup">新しいグループを作成する</a>
         </div>
