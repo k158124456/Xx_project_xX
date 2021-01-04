@@ -226,3 +226,11 @@ h1.project_name{
   .notify_link{
 	text-align: center;
   }
+
+  .invitebtn{
+	  margin:5px;
+  }
+
+  .invite_message{
+	margin-top:20px ;
+  }

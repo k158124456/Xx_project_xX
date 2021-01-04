@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '3)w#vxs3*m+_gr*@t%6agv^ugp7=@ry_j_&@4c680*3n=@&1k^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -130,3 +130,6 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/sign_in' 
 LOGIN_REDIRECT_URL = '/mainpage'
 LOGOUT_REDIRECT_URL='/sign_in/sign_out_page'
+
+STATIC_ROOT = '/usr/share/nginx/html/static'
+MEDIA_ROOT = '/usr/share/nginx/html/media'

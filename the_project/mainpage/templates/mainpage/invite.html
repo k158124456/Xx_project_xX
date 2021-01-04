@@ -1,21 +1,28 @@
 {% extends 'mainpage/mainpage.html' %}
 {% block content %}
 {% load static %}
-
-<h1>InvitePageですよ！</h1>
-
-<p>{{project.project_name}}に招待する</p>
+<div class="group_containts">
+    <h1>{{project.project_name}}にメンバーを招待する</h1>
 
 
-<!-- formのクラスはform-controlだよ-->
+    <!-- formのクラスはform-controlだよ-->
 
-<p>{{msg|safe}}</p>
-<form action="/mainpage/project_{{project.uuid}}/invite?usr={{user}}" method="post">
-{% csrf_token %}
-{{form_serch_user}}
-{{form_message}}
-<input type="submit" value="招待">
-</form>
-<a href="/mainpage/project_{{project.uuid}}">メインページに戻る</a>
-{{debug}}
+    <p>{{msg|safe}}</p>
+    <div>
+        <form action="/mainpage/project_{{project.uuid}}/invite?usr={{user}}" method="post">
+            {% csrf_token %}
+            <div class="invite_id">
+                <p>招待したいメンバーのID</p>
+                {{form_serch_user}}
+            </div>
+            <div class="invite_message">
+                <p>招待メッセージ</p>
+                {{form_message}}
+                <input class="btn btn-info invitebtn" type="submit" value="招待">
+            </div>
+        </form>
+    </div>
+
+    <a href="/mainpage/project_{{project.uuid}}">メインページに戻る</a>
+</div>
 {% endblock %}
