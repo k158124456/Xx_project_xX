@@ -70,7 +70,7 @@
 		
 			
 		<!-- メインコンテンツ　-->
-			<div class="col-md-12 maincontent">
+			<div class="col-md-12 ">
 				<h1>sign in</h1>
 				<form action="" method="POST">
 					{% csrf_token %}
@@ -86,7 +86,7 @@
 						<p>{{ error }}</p>
 					</div>
 					{% endfor %}
-					<button type="submit" >Sign in</button>
+					<button class="btn btn-info" type="submit" >Sign in</button>
 
 				</form>
 				<a href="{%url 'toppage:toppage'%}">トップページに戻る</a>
