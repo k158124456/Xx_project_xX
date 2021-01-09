@@ -1,13 +1,251 @@
 @charset "utf-8";
 
-.top{
-	width: 100%;
+p, h1, h2, h3, h4, h5, a{
+	font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
+
 }
+html,body{
+	height: 100%;
+	min-height: 100%;
+	background:#FDFFC7;
+}
+
+.maincontent {
+	display: inline-block;
+	padding-bottom: 1px;
+	margin:0%;
+	width: 100%;
+	background:#FDFFC7;
+	height: 100%;
+}
+body{
+	background:#FDFFC7;
+}
+.title_content{
+	height: 100vh;
+	background-image: url("../pic/top.png");
+	background-size:cover;
+	position: relative;
+}
+.title_txt{
+	height: 10rem;
+	width: 80%;
+	position: absolute;
+	top: -200;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	width: 80%;
+	height: 3.2rem;
+	text-align: center;
+}
+
+.title h1{
+    font: 600% Ink Free;
+    font-weight: bolder;
+	letter-spacing: 20px;
+	font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
+	color: #434343;
+	opacity: 1;
+}
+
+.title{
+	width: 100%;
+	margin:0;
+	padding:0;
+}
+.main_explanation{
+	text-align: center;
+	height: 1000px;
+}
+.main_explanation p{
+	font-size: x-large;
+	font-weight: 800; 
+}
+
+.small_title{
+	display: inline-block;
+	background:#459dad;
+	padding:10px;
+	padding-bottom: 0px;
+	margin: 100px  0px 50px 0px;
+	box-shadow: 3px 3px 5px rgba(73, 73, 73, 0.6);
+	color:#ffffff;
+	border-radius: 3px;
+	
+}
+
+.project_page_exam{
+	margin-top: 30px;
+	width: 70%;
+	border-radius: 10px;
+	box-shadow: 10px 10px 10px rgba(116, 116, 116, 0.6);
+}
+
+.how_to{
+	width: 100%;
+	display: inline-block;
+}
+
+.how_to_list{
+	display: flex;
+	margin: 0 auto;
+	width: 95%;
+	max-width: 1000px;
+	justify-content: center;
+}
+
+.how_to_1, .how_to_2, .how_to_3{
+	background-color: #ffffff;
+	height: 300px;
+	width: 220px;
+
+	margin: 15px 3%;
+	border-radius: 9px;
+	box-shadow: 5px 5px 5px rgba(116, 116, 116, 0.6);
+}
+
+.how_to_1_pic, .how_to_2_pic, .how_to_3_pic{
+	width: 220px;
+	height: 230px;
+	background-color: #ffffff;
+	border-radius: 9px 9px 0px 0px;
+}
+
+.how_to_1_pic{
+	background-image: url(../pic/new_project1.png);
+}
+.how_to_2_pic{
+	background-image: url(../pic/new_group1.png);
+	background-size: cover;
+}
+
+.how_to_3_pic{
+	background-image: url(../pic/invite.png);
+	background-size: 60%;
+	background-position: 50% 50%;
+	background-repeat:  no-repeat;
+}
+
+.how_to_txt{
+	width: 220px;
+	height: 70px;
+	background-color:#555555;
+	border-radius: 0px 0px 9px 9px;
+	color: #ffffff;
+	display: flex;
+	padding-top: 10px;
+	justify-content: center;
+	align-items: center;
+}
+.how_to_txt p{
+	font-size: large;
+}
+
+.triangle{
+	border-top: 15px solid transparent;
+	border-bottom: 15px solid transparent;
+	border-left: 15px solid #f77c29;
+	margin: 155px 0px;
+  }
+
+.feature_content p{
+	font-size: large;
+	margin-top: 40px;
+}
+
+.compair_pic{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+
+}
+
+.div1, .div2{
+	width: 500px;
+	height: 400px;
+	background-color: #ffffff;
+	margin: 20px;
+	border-radius: 9px;
+	box-shadow: 5px 5px 5px rgba(116, 116, 116, 0.6);
+	background-repeat:  no-repeat;
+	background-position: 50% 50%;
+}
+
+.changeable_status1, .changeable_status2{
+	height: 300;
+}
+
+.changeable_status1{
+	background-image: url(../pic/changeable_status1.png);
+	background-size: contain;
+}
+.changeable_status2{
+	background-image: url(../pic/changeable_status2.png);
+	background-size: contain;
+}
+
+.name_changeable1{
+	background-image: url(../pic/name_changeable1.png);
+	background-size: contain;
+}
+
+.name_changeable2{
+	background-image: url(../pic/name_changeable2.png);
+	background-size: contain;
+}
+
+.sign_up_btn{
+	display: inline-block;
+	height: 40px;
+	width: 100px;
+	background-color: #ffffff;
+	text-align: center;
+	margin: 30px auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 9px;
+	border:solid 3px;
+	border-color: #0b545c;
+	border-bottom: solid 4px #627295;
+	padding: 0.5em 1em;
+	text-decoration: none;
+}
+
+.sign_up_btn:active {
+	/*ボタンを押したとき*/
+	-webkit-transform: translateY(4px);
+	transform: translateY(4px);/*下に動く*/
+	
+  }
+
+.sign_up_btn a{
+	color: #0494a3;
+	font-family: "Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;
+}
+
+.buffer{
+	height: 50px;
+	width: 280px;
+	background-color: #0493a300;
+	margin: 0 0 0 auto;
+}
+
+.buffer p{
+	font-size: small;
+	
+}
+
+
 
 .side_ber {
 	padding: 10px;
 	height: 1080px;
 	background:  #459dad 0% 0% no-repeat padding-box;
+	position:relative;
+
 }
 .side_ber_btn{
 	width: 97%;
@@ -30,34 +268,12 @@
 	color: #ffffff;
 }
 
-.maincontent {
-	padding: 0px;
-	width: 100%;
-	background: #766f6f
+.feature_content{
+	margin-bottom:40px;
 }
 
-.title h1{
-	
-    font: normal normal normal 600% Ink Free;
-    font-weight: bolder;
-	letter-spacing: 20px;
-	
-	color: #434343;
-    opacity: 1;
-	
 
-}
 
-.title{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-ms-transform: translate(-50%,-50%);
-	-webkit-transform: translate(-50%,-50%);
-	transform: translate(-50%,-50%);
-	margin:0;
-	padding:0;
-}
 
 .topbar_containts{
 	width: auto;
@@ -234,3 +450,25 @@ h1.project_name{
   .invite_message{
 	margin-top:20px ;
   }
+
+.marker {
+    background:linear-gradient(transparent 60%, #6f6 60%);
+}
+.marker-blue {
+    background:linear-gradient(transparent 60%, rgb(156, 215, 245) 60%);
+}
+
+.marker-red {
+    background:linear-gradient(transparent 60%, rgb(243, 170, 219) 60%);
+}
+
+
+.exit_ex{
+	position:absolute;
+	bottom:0;
+	color: #459dad;
+	display: flex;
+}
+.exit_ex:hover{
+	color: #ffffff;
+}
