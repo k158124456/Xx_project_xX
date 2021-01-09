@@ -23,10 +23,7 @@
 
 	</head>
 
-	<body>
-		<h1 hidden>toppage</h1>
-
-
+	<body bgproperties="fixed">
 		<nav class="navbar navbar-expand-md navbar-dark fixed-top sidebar">
 			<a class="navbar-brand side_brand" href="{% url 'toppage:toppage' %}">yawya</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
@@ -39,7 +36,14 @@
 					<li class="nav-item">
 
 					</li>
+					{% if user.is_authenticated %}
 					<li class="nav-item">
+						<a class="nav-link" onclick="location.href='{% url 'mainpage:mainpage' %}'">メインページへ</a>
+						<!--<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_in:sign_in' %}'">Sign in</button>-->
+					</li>
+					{% else %}
+					<li class="nav-item">
+					
 						<a class="nav-link" onclick="location.href='{% url 'sign_in:sign_in' %}'">Sign in</a>
 						<!--<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_in:sign_in' %}'">Sign in</button>-->
 					</li>
@@ -47,6 +51,9 @@
 						<a class="nav-link" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">Sign up</a>
 						<!--<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'sign_up:sign_up_page' %}'">Sign up</button>-->
 					</li>
+					
+					
+					{% endif %}
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">help</a>
@@ -81,35 +88,94 @@
 
 		<!-- メインコンテンツ　-->
 		<div class="col-md-12 maincontent">
-			<img class="top" src="{% static 'pic/top.png' %}" alt="top">
+
+
 			<div class="title">
-				<h1>yawya</h1>
+				<div class="title_content">
+					<div class="title_txt">
+						<h2 class="title_ex">『<span class="marker-red">いる</span>』と『<span class="marker-blue">いない</span>』の差をなくそう </h2>
+						<h1 class="title_title">YAWYA</h1>
+					</div>
+				</div>
+
+
 			</div>
+			<div class="main_explanation">
+				<div class="whats_yawya">
+					<div class="small_title">
+						<h5>What's YAWYA</h5>
+					</div>
+
+					<p><span class="marker">YAWYAは「皆が何をしているか」を共有できるアプリケーションです</span></p>
+
+					<img src="{% static 'pic/project_page_exam.png' %}" class="project_page_exam">
+				</div>
+				<div class="how_to">
+					<div class="small_title">
+						<h5>How to use</h5>
+					</div>
+					<p><span class="marker">使い方は３ステップ</span></p>
+					<div class="how_to_list">
+						<div class="how_to_1">
+							<div class="how_to_1_pic"></div>
+							<div class="how_to_txt">
+								<p>プロジェクトを作り</p>
+							</div>
+						</div>
+						<div class="triangle"></div>
+						<div class="how_to_2">
+							<div class="how_to_2_pic"></div>
+							<div class="how_to_txt">
+								<p>グループを作って</p>
+							</div>
+						</div>
+						<div class="triangle"></div>
+						<div class="how_to_3">
+							<div class="how_to_3_pic"></div>
+							<div class="how_to_txt">
+								<p>メンバーを招待する</p>
+							</div>
+
+						</div>
+
+					</div>
+					<p>かんたん</p>
+				</div>
+				<div class="feature">
+					<div class="small_title">
+						<h5>point</h5>
+					</div>
+					<div class="feature_content">
+						<h4><span class="marker">プロジェクトごとに名前の変更ができます</span></h4>
+						<p>プロジェクト１では「田中」、プロジェクト２では「太郎」のようにプロジェクトごとで表示する名前を変更することができます</p>
+						<div class="compair_pic">
+							<div class="div1 name_changeable1"></div>
+							<div class="div2 name_changeable2"></div>
+						</div>
+
+
+
+					</div>
+					<div class="feature_content">
+						<h4><span class="marker">ステータスは自由に作ることができます</span></h4>
+						<p>グループごとステータスを作成することができるので、使い道は自分次第！</p>
+						<div class="compair_pic">
+							<div class="div1 changeable_status1"></div>
+							<div class="div2 changeable_status2"></div>
+						</div>
+
+					</div>
+				</div>
+				<p>さあ！登録して始めましょう！</p>
+				<div class="sign_up_btn">
+					<a href="{% url 'sign_up:sign_up_page' %}">sign up</a>
+				</div>
+				<div class="buffer"><p>作成者への連絡は<a href="https://twitter.com/3l4I5">こちら</a>(twitter)まで</p></div>
+			</div>
+
 		</div>
 		<!-- メインコンテンツ　-->
 
-
-
-
-
-
-
-
-
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
-    <script type="text/javascript" src="{% static 'toppage/js/jquery-3.4.1.min.js' %}"></script>-->
-
-		<!-- Include all compiled plugins (below), or include individual files as needed 
-    <script type="text/javascript" src="{% static 'toppage/js/popper.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'toppage/js/bootstrap-4.4.1.js' %}"></script>-->
-
-
-		<!-- ローカルでのテストリンク　-->
-		<!--
-	<script src="js/jquery-3.4.1.min.js"></script>
-	<script src="js/popper.min.js}"></script>
-    <script src="js/bootstrap-4.4.1.js}"></script>
-		-->
 
 	</body>
 

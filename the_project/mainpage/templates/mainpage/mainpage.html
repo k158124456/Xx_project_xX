@@ -47,7 +47,11 @@
 						<a class="nav-link project_list"
 							onclick="location.href='{% url 'mainpage:create_project' %}'"><img class="create_project_icon" src="{% static 'pic/plus.png' %}" alt="create_project_icon">新しいプロジェクト</a>
 
-							<a class="nav-link" onclick="location.href='/mainpage/leave'"><img class="exit" src="{% static 'pic/exit.png' %}" alt="exit"></a>
+							<a class="nav-link" onclick="location.href='/mainpage/leave'">
+								<div class="exit_ex">
+								<img class="exit" src="{% static 'pic/exit.png' %}" alt="exit"><p>全てでオフラインに</p>
+							</div>
+							</a>
 
 						<!--<button type="button" class="btn btn-success side_ber_btn" onclick="location.href='{% url 'mainpage:mainpage' %}'">
 								メインページへ</button>-->
